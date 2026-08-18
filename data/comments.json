@@ -1,0 +1,29 @@
+[
+  {
+    "id": "c1",
+    "postId": "p1",
+    "authorId": "u2",
+    "body": "The caching trade-off is real. We ended up putting React Query on top of tRPC just to claw back some of what we lost from HTTP caching.",
+    "upvotes": 11,
+    "downvotes": 0,
+    "createdAt": "2026-08-17T07:00:00Z"
+  },
+  {
+    "id": "c2",
+    "postId": "p1",
+    "authorId": "u3",
+    "body": "Curious how you're handling public-facing endpoints — did you keep those on REST or go full tRPC there too?",
+    "upvotes": 6,
+    "downvotes": 0,
+    "createdAt": "2026-08-17T08:00:00Z"
+  },
+  {
+    "id": "c3",
+    "postId": "p1",
+    "authorId": "u1",
+    "body": "Kept REST for anything public — tRPC's coupling to a TS client isn't worth it once you don't control who's calling the API.",
+    "upvotes": 3,
+    "downvotes": 0,
+    "createdAt": "2026-08-17T08:15:00Z"
+  }
+]

@@ -1,0 +1,190 @@
+@import "tokens.css";
+
+/* --- Vote control: a git-diff-styled +/- gutter --- */
+.vote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  width: 2.75rem;
+  flex-shrink: 0;
+}
+
+.vote__btn {
+  width: 2rem;
+  height: 1.75rem;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--color-text-faint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  transition:
+    border-color 0.15s var(--ease-snap),
+    color 0.15s var(--ease-snap),
+    background 0.15s var(--ease-snap);
+}
+
+.vote__btn:hover {
+  color: var(--color-text);
+  border-color: transparent;
+}
+
+.vote__btn[data-vote-action="up"].is-active {
+  color: var(--color-up);
+  border-color: var(--color-up);
+  background: var(--color-up-dim);
+}
+
+.vote__btn[data-vote-action="down"].is-active {
+  color: var(--color-down);
+  border-color: var(--color-down);
+  background: var(--color-down-dim);
+}
+
+.vote__count {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-dim);
+}
+
+/* --- Tag pills --- */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.tag-pill {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  padding: 0.2rem var(--space-2);
+  border: 1px solid var(--color-info-dim);
+  border-radius: var(--radius-sm);
+  color: var(--color-info);
+  background: var(--color-info-dim);
+}
+
+.post-card__actions,
+.comment__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.post-card__action,
+.comment__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-faint);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  line-height: 1;
+  transition:
+    border-color 0.15s var(--ease-snap),
+    color 0.15s var(--ease-snap),
+    background 0.15s var(--ease-snap);
+}
+
+.post-card__action:hover,
+.comment__action:hover {
+  color: var(--color-text);
+  border-color: var(--color-text-dim);
+  background: var(--color-surface);
+}
+
+/* --- Buttons --- */
+.btn {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-dim);
+  transition:
+    border-color 0.15s var(--ease-snap),
+    color 0.15s var(--ease-snap),
+    transform 0.1s var(--ease-snap);
+}
+
+.btn:hover {
+  color: var(--color-text);
+  border-color: var(--color-text-dim);
+}
+
+.btn--primary {
+  color: var(--color-bg);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.btn--primary:hover {
+  transform: translateY(-1px);
+  color: var(--color-bg);
+}
+
+.btn--danger {
+  color: var(--color-down);
+  border-color: var(--color-down-dim);
+}
+
+.btn--danger:hover {
+  border-color: var(--color-down);
+}
+
+/* --- Avatar / author byline --- */
+.byline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  color: var(--color-text-faint);
+}
+
+.byline__avatar {
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 2px;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-dim);
+  font-size: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.byline__name {
+  color: var(--color-text-dim);
+}
+
+.byline__dot::before {
+  content: "\00b7";
+  margin: 0 var(--space-1);
+}
+
+/* --- Empty / helper text --- */
+.hint {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  color: var(--color-text-faint);
+}
+
+.hint.is-limit {
+  color: var(--color-down);
+}

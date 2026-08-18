@@ -1,0 +1,51 @@
+/* ==========================================================================
+   Design tokens
+   Aesthetic: "terminal meets editorial" — a dark, git-diff-inspired
+   developer feed. Monospace for structure/UI chrome, a wonky editorial
+   serif for reading content. Amber is the one live-wire accent.
+   ========================================================================== */
+
+:root {
+  /* --- Color: surfaces --- */
+  --color-bg: #0a0d0b;
+  --color-surface: #10140f;
+  --color-surface-raised: #161c15;
+  --color-border: #232b23;
+  --color-border-soft: #171d18;
+
+  /* --- Color: text --- */
+  --color-text: #edf2ee;
+  --color-text-dim: #9db3a4;
+  --color-text-faint: #5c7268;
+
+  /* --- Color: accents --- */
+  --color-accent: #ff8a3d;
+  --color-accent-dim: #ff8a3d33;
+  --color-up: #5eff9d;
+  --color-up-dim: #5eff9d26;
+  --color-down: #ff5c66;
+  --color-down-dim: #ff5c6626;
+  --color-info: #5eead4;
+  --color-info-dim: #5eead426;
+
+  /* --- Type --- */
+  --font-display: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-body: "Fraunces", Georgia, "Times New Roman", serif;
+
+  /* --- Spacing scale --- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2.25rem;
+  --space-7: 3.5rem;
+  --space-8: 5rem;
+
+  /* --- Radius / misc --- */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --nav-width: 250px;
+  --content-max: 46rem;
+  --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
+}

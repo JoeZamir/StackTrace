@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News — devfeed</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/feed.css" />
+  <link rel="stylesheet" href="css/post.css" />
+</head>
+<body>
+  <div class="site-shell">
+    <nav class="site-nav" data-nav aria-label="Primary">
+      <div class="site-nav__top">
+        <a class="site-nav__brand" href="index.html"><span class="site-nav__brand-glyph">//</span>devfeed</a>
+      </div>
+
+      <div class="site-nav__section">
+        <div class="site-nav__links">
+          <a href="index.html">Feed</a>
+          <a href="index.html?filter=popular">Popular</a>
+          <a href="news.html" aria-current="page">News</a>
+        </div>
+        <a class="site-nav__cta" href="new-post.html">+ Create post</a>
+      </div>
+
+      <div class="site-nav__section">
+        <span class="site-nav__section-title">Topics</span>
+        <div class="sidebar-topic-list" data-topic-list aria-label="Popular topics"></div>
+      </div>
+
+      <p class="site-nav__footer">devfeed — a small community for people building things with Node.</p>
+    </nav>
+
+    <main class="site-main">
+      <header class="top-navbar" aria-label="Top navigation">
+        <div class="top-navbar__center"></div>
+        <div class="site-nav__auth top-navbar__account" data-auth-status aria-live="polite"></div>
+      </header>
+
+      <button class="nav-toggle" data-nav-toggle type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle__bars"><span></span><span></span><span></span></span>
+        <span>Menu</span>
+      </button>
+
+      <div class="content-col">
+        <header class="page-heading">
+          <span class="page-heading__eyebrow">$ news --stream</span>
+          <h1 class="page-heading__title">Live community updates</h1>
+        </header>
+
+        <section class="news-panel" aria-label="Community news stream">
+          <div class="news-panel__header">
+            <div>
+              <strong>Stream status</strong>
+              <span class="hint">connected</span>
+            </div>
+            <span class="news-panel__status">Listening for updates…</span>
+          </div>
+          <ul class="news-list" data-news-list></ul>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="js/news.js"></script>
+</body>
+</html>

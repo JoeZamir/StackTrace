@@ -1,0 +1,33 @@
+Coding Plan
+1.	Sever js
+Entry point to the app. It does the following:
+•	Handles GET, POST, PATCH, DELETE reqs
+•	Handles static files
+•	Imports http, serveStatic, and routehandlers
+
+2.	sendResponse
+export function that handles status codes, headers, and response payloads
+3.	serveStatcic
+Responsible for serving the static files:
+•	imports path, fs, sendresponse, and contenttypes.
+•	Uses try/catch to serve the files in public dir.
+•	Check when to use rel vs absolute paths.
+
+4.	getContentType
+simple utility function that returns the content type for send response.
+5.	routeHandler
+This will handle the donkey work of routes and requests from the frontend such as get, post, patch, delete. It will:
+•	import getData, sendRes, parseJson, sanitizeJson, createAlert, events, posts etc.
+•	Contain async functions for all the reqs.
+6.	getData
+function to read data in the data folder and parse it. Will import fs/promises, and path
+7.	parseJson
+utility function to parse req json
+8.	sanitizeJson
+Utility function to sanitize user input data before pushing it
+9.	createAlert
+used to create alerts on new posts
+10.	addPost
+will use this to add posts. Maybe even comments
+
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New post — devfeed</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/form.css" />
+</head>
+<body>
+  <div class="site-shell">
+    <nav class="site-nav" data-nav aria-label="Primary">
+      <a class="site-nav__brand" href="index.html"><span class="site-nav__brand-glyph">//</span>devfeed</a>
+      <div class="site-nav__links">
+        <a href="index.html">Feed</a>
+        <a href="new-post.html" aria-current="page">New post</a>
+      </div>
+      <a class="site-nav__cta" href="new-post.html">+ New post</a>
+      <p class="site-nav__footer">devfeed — a small community for people building things with code.</p>
+    </nav>
+
+    <main class="site-main">
+      <header class="top-navbar" aria-label="Top navigation">
+        <div class="top-navbar__center"></div>
+        <div class="site-nav__auth top-navbar__account" data-auth-status aria-live="polite"></div>
+      </header>
+
+      <button class="nav-toggle" data-nav-toggle type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle__bars"><span></span><span></span><span></span></span>
+        <span>Menu</span>
+      </button>
+
+      <div class="content-col">
+        <header class="page-heading">
+          <span class="page-heading__eyebrow">$ devfeed new-post</span>
+          <h1 class="page-heading__title">Write something worth shipping</h1>
+        </header>
+
+        <form class="post-form" data-post-form data-post-id="">
+          <div class="field">
+            <div class="field__label-row">
+              <label class="field__label" for="post-title">Title</label>
+              <span class="hint" data-title-counter>0 / 90</span>
+            </div>
+            <input
+              type="text"
+              id="post-title"
+              name="title"
+              data-title-input
+              maxlength="90"
+              placeholder="Why I finally moved off REST for internal tools"
+              required
+            />
+          </div>
+
+          <div class="field" data-tag-field>
+            <label class="field__label" for="tag-entry">Tags <span class="hint">(up to 5, press Enter to add)</span></label>
+            <div class="tag-input">
+              <ul class="tag-input__list" data-tag-list></ul>
+              <input type="text" id="tag-entry" class="tag-input__field" data-tag-input placeholder="node.js, debugging…" />
+            </div>
+            <input type="hidden" name="tags" data-tag-value />
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="post-body">Body</label>
+            <textarea
+              id="post-body"
+              name="body"
+              class="post-form__body"
+              data-autogrow
+              placeholder="What did you build, break, or figure out? Markdown and code fences are fine."
+              required
+            ></textarea>
+          </div>
+
+          <div class="auth-form__feedback" data-auth-warning hidden></div>
+
+          <div class="post-form__actions">
+            <a class="btn" href="index.html">Cancel</a>
+            <button class="btn btn--primary" type="submit">Publish</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="js/new-post.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>devfeed — the feed</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/feed.css" />
+</head>
+<body>
+  <div class="site-shell">
+    <nav class="site-nav" data-nav aria-label="Primary">
+      <div class="site-nav__top">
+        <a class="site-nav__brand" href="index.html"><span class="site-nav__brand-glyph">//</span>devfeed</a>
+      </div>
+
+      <div class="site-nav__section">
+        <div class="site-nav__links">
+          <a href="index.html" aria-current="page">Feed</a>
+          <a href="index.html?filter=popular">Popular</a>
+          <a href="news.html">News</a>
+        </div>
+        <a class="site-nav__cta" href="new-post.html">+ Create post</a>
+      </div>
+
+      <div class="site-nav__section">
+        <span class="site-nav__section-title">Topics</span>
+        <div class="sidebar-topic-list" data-topic-list aria-label="Popular topics"></div>
+      </div>
+
+      <p class="site-nav__footer">devfeed — a small community for people building things with Node.</p>
+    </nav>
+
+    <main class="site-main">
+      <header class="top-navbar top-navbar--with-search" aria-label="Top navigation">
+        <div></div>
+        <div class="feed-toolbar__search top-navbar__center">
+          <span class="feed-toolbar__search-icon" aria-hidden="true"></span>
+          <input type="search" placeholder="Search posts…" aria-label="Search posts" />
+        </div>
+        <div class="site-nav__auth top-navbar__account" data-auth-status aria-live="polite"></div>
+      </header>
+
+      <button class="nav-toggle" data-nav-toggle type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle__bars"><span></span><span></span><span></span></span>
+        <span>Menu</span>
+      </button>
+
+      <div class="content-col">
+        <header class="page-heading">
+          <div>
+            <span class="page-heading__eyebrow">$ git log --feed</span>
+            <h1 class="page-heading__title">What the community shipped</h1>
+          </div>
+        </header>
+
+        <section class="feed-toolbar" aria-label="Sort and search">
+          <div class="feed-toolbar__sort" data-sort-toolbar>
+            <button type="button" data-sort="latest" class="is-active">latest</button>
+            <button type="button" data-sort="top">top</button>
+            <button type="button" data-sort="discussed">discussed</button>
+          </div>
+        </section>
+
+        <ol class="feed-list" data-feed-list></ol>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="js/feed.js"></script>
+</body>
+</html>

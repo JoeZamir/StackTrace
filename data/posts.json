@@ -1,0 +1,42 @@
+[
+  {
+    "id": "p1",
+    "authorId": "u1",
+    "title": "Why I finally moved off REST for internal tools",
+    "body": "Spent a weekend rewriting our internal admin API in tRPC. The old REST version had drifted for two years — routes that didn't match the client's expectations anymore, a Postman collection nobody trusted, and a types package we had to remember to rebuild by hand.\n\nThe biggest win was immediate: end-to-end types. No more guessing whether GET /admin/users/:id returns lastLoginAt as a string or a number.\n\nWhat got worse: caching. REST gave us free HTTP caching semantics we didn't realize we were leaning on. We had to rebuild some of that manually on the client.\n\nThe migration trap: our auth middleware assumed a REST-style request object, and tRPC's context setup runs before that middleware in a way I didn't expect — cost me an entire afternoon to untangle.",
+    "tags": ["api-design", "typescript"],
+    "upvotes": 46,
+    "downvotes": 4,
+    "createdAt": "2026-08-17T05:10:00Z"
+  },
+  {
+    "id": "p2",
+    "authorId": "u2",
+    "title": "Async/await gotchas that still trip me up in Node",
+    "body": "A running list of the mistakes I keep making with Promise.all, unhandled rejections, and forgetting that forEach doesn't await anything.",
+    "tags": ["node.js", "async"],
+    "upvotes": 30,
+    "downvotes": 3,
+    "createdAt": "2026-08-17T01:00:00Z"
+  },
+  {
+    "id": "p3",
+    "authorId": "u3",
+    "title": "Show devfeed: a tiny CLI for scaffolding Express routes",
+    "body": "Built this to stop copy-pasting the same controller/route/service boilerplate. Takes a resource name and generates the files with tests included.",
+    "tags": ["express", "cli", "show-devfeed"],
+    "upvotes": 17,
+    "downvotes": 2,
+    "createdAt": "2026-08-16T08:00:00Z"
+  },
+  {
+    "id": "p4",
+    "authorId": "u1",
+    "title": "Debugging a slow memory leak in a long-running Express server",
+    "body": "Heap snapshots, --inspect, and a stubborn event listener that never got removed. Walking through how I finally traced it.",
+    "tags": ["debugging", "performance"],
+    "upvotes": 10,
+    "downvotes": 1,
+    "createdAt": "2026-08-15T08:00:00Z"
+  }
+]
