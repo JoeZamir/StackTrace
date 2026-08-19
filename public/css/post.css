@@ -202,3 +202,40 @@
 .auth-form__feedback.is-warning {
   color: var(--color-info);
 }
+
+.post {
+  display: block;
+}
+
+.post__content,
+.comment__content {
+  min-width: 0;
+}
+
+.post__footer,
+.comment__footer {
+  margin-top: var(--space-4);
+}
+
+.comment {
+  align-items: flex-start;
+}
+
+.comment__footer {
+  border-top: 0;
+  padding-top: var(--space-2);
+}
+
+.comment-form {
+  gap: var(--space-3);
+}
+
+@media (max-width: 560px) {
+  .post { padding-bottom: var(--space-5); margin-bottom: var(--space-5); }
+  .post__title { font-size: clamp(1.25rem, 7vw, 1.65rem); }
+  .post__body, .comment__body { font-size: 0.95rem; }
+  .post__meta, .comments__header, .comment-form__footer, .post-card__footer { align-items: flex-start; }
+  .comment-form { flex-direction: column; }
+  .comment-reply { width: 100%; min-height: 0; }
+  .comment-reply textarea { min-width: 0; }
+}

@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>devfeed</title>
+  <title>stackTrace</title>
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/feed.css" />
   <link rel="stylesheet" href="css/post.css" />
 </head>
 <body>
   <div class="site-shell">
     <nav class="site-nav" data-nav aria-label="Primary">
-      <a class="site-nav__brand" href="index.html"><span class="site-nav__brand-glyph">//</span>devfeed</a>
+      <a class="site-nav__brand" href="index.html"><span class="site-nav__brand-glyph">//</span>stackTrace</a>
       <div class="site-nav__links">
         <a href="index.html">Feed</a>
         <a href="new-post.html">New post</a>
       </div>
       <a class="site-nav__cta" href="new-post.html">+ New post</a>
-      <p class="site-nav__footer">devfeed — a small community for people building things with Node.</p>
+      <p class="site-nav__footer">stackTrace — a small community for people building things with Node.</p>
     </nav>
 
     <main class="site-main">
@@ -32,172 +33,40 @@
       </button>
 
       <div class="content-col">
-        <article class="post" data-post-id="1" data-author-name="amara_codes">
-          <div class="vote" data-vote-control>
-            <button class="vote__btn" data-vote-action="up" aria-label="Upvote">▲</button>
-            <span class="vote__count" data-vote-count>42</span>
-            <button class="vote__btn" data-vote-action="down" aria-label="Downvote">▼</button>
-          </div>
-
-          <div>
-            <h1 class="post__title">Why I finally moved off REST for internal tools</h1>
-
-            <div class="post__meta">
-              <div class="byline">
-                <span class="byline__avatar">AK</span>
-                <span class="byline__name">amara_codes</span>
-                <span class="byline__dot"></span>
-                <span>3h ago</span>
+        <article class="post" data-post-id="" data-author-name="">
+          <div class="post__content">
+            <h1 class="post__title"></h1>
+            <div class="post__meta"></div>
+            <div class="post__body"></div>
+            <div class="post-card__footer post__footer">
+              <div class="post-card__vote-row" data-vote-row data-post-vote>
+                <button class="post-card__vote" type="button" data-vote-button="up" aria-label="Upvote" aria-pressed="false"><span aria-hidden="true">▲</span><span class="post-card__vote-count" data-upvote-count>0</span></button>
+                <button class="post-card__vote" type="button" data-vote-button="down" aria-label="Downvote" aria-pressed="false"><span aria-hidden="true">▼</span><span class="post-card__vote-count" data-downvote-count>0</span></button>
               </div>
-              <ul class="tag-list">
-                <li class="tag-pill">api-design</li>
-                <li class="tag-pill">typescript</li>
-              </ul>
-            </div>
-
-            <div class="post__body">
-              <p>Spent a weekend rewriting our internal admin API in tRPC. The old REST version had drifted for two years — routes that didn't match the client's expectations anymore, a Postman collection nobody trusted, and a types package we had to remember to rebuild by hand.</p>
-              <p>The biggest win was immediate: end-to-end types. No more guessing whether <code>GET /admin/users/:id</code> returns <code>lastLoginAt</code> as a string or a number.</p>
-              <pre><code>const user = await trpc.admin.users.byId.query({ id });
-// user is fully typed, no fetch(), no manual parsing</code></pre>
-              <p>What got worse: caching. REST gave us free HTTP caching semantics we didn't realize we were leaning on. We had to rebuild some of that manually on the client.</p>
-              <p>The migration trap: our auth middleware assumed a REST-style request object, and tRPC's context setup runs before that middleware in a way I didn't expect — cost me an entire afternoon to untangle.</p>
-            </div>
-
-            <div class="post__actions" data-post-actions>
-              <a class="btn" href="new-post.html?edit=1">Edit</a>
-              <button class="btn btn--danger" type="button" data-delete-post>Delete</button>
+              <div class="post__actions" data-post-actions>
+                <a class="btn" data-edit-post href="new-post.html">Edit</a>
+                <button class="btn btn--danger" type="button" data-delete-post>Delete</button>
+              </div>
             </div>
             <div class="auth-form__feedback" data-post-warning hidden></div>
           </div>
         </article>
 
         <section class="comments" aria-label="Comments">
-          <div class="comments__header">
-            <h2>Discussion</h2>
-            <span class="comments__count">18 comments</span>
-          </div>
-
+          <div class="comments__header"><h2>Discussion</h2><span class="comments__count">0 comments</span></div>
           <form class="comment-form" data-comment-form>
             <div class="byline__avatar" aria-hidden="true">YOU</div>
             <div class="comment-form__field">
-              <textarea
-                data-autogrow
-                data-comment-input
-                rows="2"
-                placeholder="Say something useful…"
-                maxlength="500"
-              ></textarea>
-              <div class="comment-form__footer">
-                <span class="hint" data-comment-counter>0 / 500</span>
-                <button class="btn btn--primary" type="submit">Comment</button>
-              </div>
+              <textarea data-autogrow data-comment-input rows="2" placeholder="Say something useful…" maxlength="500"></textarea>
+              <div class="comment-form__footer"><span class="hint" data-comment-counter>0 / 500</span><button class="btn btn--primary" type="submit">Comment</button></div>
               <div class="auth-form__feedback" data-comment-warning hidden></div>
             </div>
           </form>
-
-          <ol class="comment-list">
-            <li class="comment" data-comment-author="tomek_b">
-              <div class="vote" data-vote-control>
-                <button class="vote__btn" data-vote-action="up" aria-label="Upvote">▲</button>
-                <span class="vote__count" data-vote-count>11</span>
-                <button class="vote__btn" data-vote-action="down" aria-label="Downvote">▼</button>
-              </div>
-              <div>
-                <div class="comment__meta">
-                  <div class="byline">
-                    <span class="byline__avatar">TB</span>
-                    <span class="byline__name">tomek_b</span>
-                    <span class="byline__dot"></span>
-                    <span>2h ago</span>
-                  </div>
-                </div>
-                <p class="comment__body">The caching trade-off is real. We ended up putting React Query on top of tRPC just to claw back some of what we lost from HTTP caching.</p>
-                <div class="comment__actions">
-                  <button class="comment__action" type="button"><span aria-hidden="true">▲</span> Upvote</button>
-                  <button class="comment__action" type="button"><span aria-hidden="true">▼</span> Downvote</button>
-                  <button class="comment__action" type="button" data-reply-toggle>Reply</button>
-                </div>
-                <form class="comment-reply" data-reply-form hidden>
-                  <textarea data-autogrow data-reply-input rows="2" maxlength="200" placeholder="Write a reply…"></textarea>
-                  <div class="comment-reply__footer">
-                    <span class="hint" data-reply-counter>0 / 200</span>
-                    <button class="btn btn--primary" type="submit">Reply</button>
-                  </div>
-                  <div class="auth-form__feedback" data-reply-warning hidden></div>
-                </form>
-              </div>
-            </li>
-
-            <li class="comment" data-comment-author="kesh_dev">
-              <div class="vote" data-vote-control>
-                <button class="vote__btn" data-vote-action="up" aria-label="Upvote">▲</button>
-                <span class="vote__count" data-vote-count>6</span>
-                <button class="vote__btn" data-vote-action="down" aria-label="Downvote">▼</button>
-              </div>
-              <div>
-                <div class="comment__meta">
-                  <div class="byline">
-                    <span class="byline__avatar">KD</span>
-                    <span class="byline__name">kesh_dev</span>
-                    <span class="byline__dot"></span>
-                    <span>1h ago</span>
-                  </div>
-                </div>
-                <p class="comment__body">Curious how you're handling public-facing endpoints — did you keep those on REST or go full tRPC there too?</p>
-                <div class="comment__actions">
-                  <button class="comment__action" type="button"><span aria-hidden="true">▲</span> Upvote</button>
-                  <button class="comment__action" type="button"><span aria-hidden="true">▼</span> Downvote</button>
-                  <button class="comment__action" type="button" data-reply-toggle>Reply</button>
-                </div>
-                <form class="comment-reply" data-reply-form hidden>
-                  <textarea data-autogrow data-reply-input rows="2" maxlength="200" placeholder="Write a reply…"></textarea>
-                  <div class="comment-reply__footer">
-                    <span class="hint" data-reply-counter>0 / 200</span>
-                    <button class="btn btn--primary" type="submit">Reply</button>
-                  </div>
-                  <div class="auth-form__feedback" data-reply-warning hidden></div>
-                </form>
-              </div>
-            </li>
-
-            <li class="comment" data-comment-author="amara_codes">
-              <div class="vote" data-vote-control>
-                <button class="vote__btn" data-vote-action="up" aria-label="Upvote">▲</button>
-                <span class="vote__count" data-vote-count>3</span>
-                <button class="vote__btn" data-vote-action="down" aria-label="Downvote">▼</button>
-              </div>
-              <div>
-                <div class="comment__meta">
-                  <div class="byline">
-                    <span class="byline__avatar">AK</span>
-                    <span class="byline__name">amara_codes</span>
-                    <span class="byline__dot"></span>
-                    <span>45m ago</span>
-                  </div>
-                </div>
-                <p class="comment__body">Kept REST for anything public — tRPC's coupling to a TS client isn't worth it once you don't control who's calling the API.</p>
-                <div class="comment__actions">
-                  <button class="comment__action" type="button"><span aria-hidden="true">▲</span> Upvote</button>
-                  <button class="comment__action" type="button"><span aria-hidden="true">▼</span> Downvote</button>
-                  <button class="comment__action" type="button" data-reply-toggle>Reply</button>
-                </div>
-                <form class="comment-reply" data-reply-form hidden>
-                  <textarea data-autogrow data-reply-input rows="2" maxlength="200" placeholder="Write a reply…"></textarea>
-                  <div class="comment-reply__footer">
-                    <span class="hint" data-reply-counter>0 / 200</span>
-                    <button class="btn btn--primary" type="submit">Reply</button>
-                  </div>
-                  <div class="auth-form__feedback" data-reply-warning hidden></div>
-                </form>
-              </div>
-            </li>
-          </ol>
+          <ol class="comment-list"></ol>
         </section>
       </div>
     </main>
   </div>
-
   <script type="module" src="js/post.js"></script>
 </body>
 </html>

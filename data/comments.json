@@ -25,5 +25,50 @@
     "upvotes": 3,
     "downvotes": 0,
     "createdAt": "2026-08-17T08:15:00Z"
+  },
+  {
+    "id": "c4",
+    "postId": "p2",
+    "authorId": "u1",
+    "body": "The memo here is that Promise.all is not a magic fix if one routine stalls forever.",
+    "upvotes": 5,
+    "downvotes": 0,
+    "createdAt": "2026-08-17T03:00:00Z"
+  },
+  {
+    "id": "c5",
+    "postId": "p2",
+    "authorId": "u3",
+    "body": "I keep a tiny helper to wrap each task in a timeout so the failure mode stays obvious.",
+    "upvotes": 4,
+    "downvotes": 0,
+    "createdAt": "2026-08-17T05:00:00Z"
+  },
+  {
+    "id": "c6",
+    "postId": "p3",
+    "authorId": "u2",
+    "body": "This is exactly the kind of tool I end up writing in a side quest and then never shipping.",
+    "upvotes": 7,
+    "downvotes": 1,
+    "createdAt": "2026-08-16T14:00:00Z"
+  },
+  {
+    "id": "c7",
+    "postId": "p3",
+    "authorId": "u1",
+    "body": "The best scaffolds feel opinionated without feeling heavy.",
+    "upvotes": 6,
+    "downvotes": 0,
+    "createdAt": "2026-08-16T20:00:00Z"
+  },
+  {
+    "id": "c8",
+    "postId": "p4",
+    "authorId": "u3",
+    "body": "The hidden cost of a shared queue is that the leak only shows up under exactly the right churn pattern.",
+    "upvotes": 8,
+    "downvotes": 0,
+    "createdAt": "2026-08-15T09:00:00Z"
   }
 ]

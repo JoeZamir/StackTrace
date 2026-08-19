@@ -2,7 +2,7 @@
 
 ## Primary Rule
 
-This repository currently contains the **frontend/UI portion of DevFeed**.
+This repository currently contains the **frontend/UI portion of stackTrace**.
 
 Do **not** create backend code, API code, server code, or API-fetching code in this project unless the user explicitly changes this instruction.
 

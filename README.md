@@ -1,4 +1,4 @@
-# devfeed — frontend skeleton
+# stackTrace — frontend skeleton
 
 A static frontend for a small developer-community app: a feed of posts,
 a post detail page with comments, and a create/edit post form. This is

@@ -1,5 +1,4 @@
 import { qs, qsa } from "./utils/dom.js";
-import { initVoteControls } from "./utils/vote-control.js";
 import { initAutoGrow } from "./utils/textarea.js";
 import { initCharCounter } from "./utils/char-counter.js";
 import { initMobileNav } from "./utils/nav.js";
@@ -14,13 +13,12 @@ import { posts } from "../../data/site-data.js";
 
 const POST_DATA = posts.reduce((map, post) => {
   map[post.id] = post;
+  map[post.numericId] = post;
   return map;
 }, {});
 
 function getSelectedPost() {
-  const id = Number(
-    new URLSearchParams(window.location.search).get("id") || "1",
-  );
+  const id = new URLSearchParams(window.location.search).get("id") || "p1";
   return POST_DATA[id] || posts[0];
 }
 
@@ -51,7 +49,7 @@ function renderPostPage() {
   }
 
   const body = qs(".post__body", article);
-  if (body) body.innerHTML = post.body;
+  if (body) body.innerHTML = post.bodyHtml;
 
   const commentsSection = qs(".comments", document.body);
   if (commentsSection) {
@@ -65,12 +63,8 @@ function renderPostPage() {
         .map(
           (comment) => `
             <li class="comment" data-comment-author="${comment.author}">
-              <div class="vote" data-vote-control>
-                <button class="vote__btn" data-vote-action="up" aria-label="Upvote">▲</button>
-                <span class="vote__count" data-vote-count>3</span>
-                <button class="vote__btn" data-vote-action="down" aria-label="Downvote">▼</button>
-              </div>
-              <div>
+
+              <div class="comment__content">
                 <div class="comment__meta">
                   <div class="byline">
                     <span class="byline__avatar">${comment.avatar}</span>
@@ -80,10 +74,12 @@ function renderPostPage() {
                   </div>
                 </div>
                 <p class="comment__body">${comment.text}</p>
-                <div class="comment__actions">
-                  <button class="comment__action" type="button"><span aria-hidden="true">▲</span> Upvote</button>
-                  <button class="comment__action" type="button"><span aria-hidden="true">▼</span> Downvote</button>
-                  <button class="comment__action" type="button" data-reply-toggle>Reply</button>
+                <div class="post-card__footer comment__footer">
+                  <div class="post-card__vote-row" data-vote-row data-comment-id="${comment.id}">
+                    <button class="post-card__vote" type="button" data-vote-button="up" aria-label="Upvote" aria-pressed="false"><span aria-hidden="true">▲</span><span class="post-card__vote-count">${comment.upvotes}</span></button>
+                    <button class="post-card__vote" type="button" data-vote-button="down" aria-label="Downvote" aria-pressed="false"><span aria-hidden="true">▼</span><span class="post-card__vote-count">${comment.downvotes}</span></button>
+                  </div>
+                  <div class="comment__actions"><button class="comment__action" type="button" data-reply-toggle>Reply</button></div>
                 </div>
                 <form class="comment-reply" data-reply-form hidden>
                   <textarea data-autogrow data-reply-input rows="2" maxlength="200" placeholder="Write a reply…"></textarea>
@@ -101,7 +97,67 @@ function renderPostPage() {
     }
   }
 
-  document.title = `${post.title} — devfeed`;
+  document.title = `${post.title} — stackTrace`;
+}
+
+
+function updateInlineVote(row, source) {
+  const upButton = qs('[data-vote-button="up"]', row);
+  const downButton = qs('[data-vote-button="down"]', row);
+  const upCount = qs(".post-card__vote-count", upButton ?? row);
+  const downCount = qs(".post-card__vote-count", downButton ?? row);
+
+  if (upButton) {
+    const active = source.userVote === "up";
+    upButton.classList.toggle("is-active", active);
+    upButton.setAttribute("aria-pressed", String(active));
+    if (upCount) upCount.textContent = String(source.upvotes);
+  }
+
+  if (downButton) {
+    const active = source.userVote === "down";
+    downButton.classList.toggle("is-active", active);
+    downButton.setAttribute("aria-pressed", String(active));
+    if (downCount) downCount.textContent = String(source.downvotes);
+  }
+}
+
+function updateVoteState(source, direction, row) {
+  const previousState = source.userVote || "none";
+  const isSameVote = previousState === direction;
+
+  if (previousState === "up") source.upvotes = Math.max(0, source.upvotes - 1);
+  if (previousState === "down") source.downvotes = Math.max(0, source.downvotes - 1);
+
+  if (isSameVote) {
+    source.userVote = "none";
+  } else {
+    if (direction === "up") source.upvotes += 1;
+    if (direction === "down") source.downvotes += 1;
+    source.userVote = direction;
+  }
+
+  updateInlineVote(row, source);
+}
+
+function initPostVoteRows(post) {
+  const postRow = qs("[data-post-vote]");
+  if (postRow) {
+    postRow.dataset.postId = post.id;
+    updateInlineVote(postRow, post);
+  }
+
+  qsa("[data-vote-row]").forEach((row) => {
+    row.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-vote-button]");
+      if (!button) return;
+      event.preventDefault();
+      const source = row.dataset.commentId
+        ? post.commentList.find((comment) => comment.id === row.dataset.commentId)
+        : post;
+      if (source) updateVoteState(source, button.dataset.voteButton, row);
+    });
+  });
 }
 
 function applyPostAuthorState() {
@@ -233,7 +289,7 @@ function initPostPage() {
   renderPostPage();
   refreshAuthStatus();
   applyPostAuthorState();
-  initVoteControls();
+  initPostVoteRows(getSelectedPost());
   initAutoGrow("[data-autogrow]");
   initCharCounter("[data-comment-input]", "[data-comment-counter]", 500);
   qsa("[data-reply-input]").forEach((input) => {
