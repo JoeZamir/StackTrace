@@ -12,7 +12,7 @@ const TOPIC_POOL = [
   "node.js",
   "performance",
   "typescript",
-  "show-devfeed",
+  "show-stacktrace",
   "api",
   "testing",
   "security",
@@ -84,7 +84,7 @@ function buildTopicList() {
 }
 
 function syncVoteRow(postId) {
-  const post = feedPosts.find((item) => item.id === Number(postId));
+  const post = feedPosts.find((item) => item.id === postId);
   if (!post) return;
 
   const row = qs(`[data-vote-row][data-post-id="${post.id}"]`);
@@ -194,7 +194,7 @@ function renderFeedPosts() {
 }
 
 function updateVoteState(postId, direction) {
-  const post = feedPosts.find((item) => item.id === Number(postId));
+  const post = feedPosts.find((item) => item.id === postId);
   if (!post) return;
 
   const previousState = post.userVote || "none";

@@ -1,8 +1,8 @@
-# DevFeed Project Context
+# stackTrace Project Context
 
 ## Purpose
 
-DevFeed is a small developer-community application intended to be used as a Node.js backend learning project.
+stackTrace is a small developer-community application intended to be used as a Node.js backend learning project.
 
 The repository currently contains a mostly complete static frontend. The frontend is deliberately UI-only. The Node.js backend is the part that will be built separately and then connected to the frontend later.
 

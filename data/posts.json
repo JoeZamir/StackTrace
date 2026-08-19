@@ -3,8 +3,11 @@
     "id": "p1",
     "authorId": "u1",
     "title": "Why I finally moved off REST for internal tools",
-    "body": "Spent a weekend rewriting our internal admin API in tRPC. The old REST version had drifted for two years — routes that didn't match the client's expectations anymore, a Postman collection nobody trusted, and a types package we had to remember to rebuild by hand.\n\nThe biggest win was immediate: end-to-end types. No more guessing whether GET /admin/users/:id returns lastLoginAt as a string or a number.\n\nWhat got worse: caching. REST gave us free HTTP caching semantics we didn't realize we were leaning on. We had to rebuild some of that manually on the client.\n\nThe migration trap: our auth middleware assumed a REST-style request object, and tRPC's context setup runs before that middleware in a way I didn't expect — cost me an entire afternoon to untangle.",
-    "tags": ["api-design", "typescript"],
+    "body": "Spent a weekend rewriting our internal admin API in tRPC. The old REST version had drifted for two years \u2014 routes that didn't match the client's expectations anymore, a Postman collection nobody trusted, and a types package we had to remember to rebuild by hand.\n\nThe biggest win was immediate: end-to-end types. No more guessing whether GET /admin/users/:id returns lastLoginAt as a string or a number.\n\nWhat got worse: caching. REST gave us free HTTP caching semantics we didn't realize we were leaning on. We had to rebuild some of that manually on the client.\n\nThe migration trap: our auth middleware assumed a REST-style request object, and tRPC's context setup runs before that middleware in a way I didn't expect \u2014 cost me an entire afternoon to untangle.",
+    "tags": [
+      "api-design",
+      "typescript"
+    ],
     "upvotes": 46,
     "downvotes": 4,
     "createdAt": "2026-08-17T05:10:00Z"
@@ -13,8 +16,11 @@
     "id": "p2",
     "authorId": "u2",
     "title": "Async/await gotchas that still trip me up in Node",
-    "body": "A running list of the mistakes I keep making with Promise.all, unhandled rejections, and forgetting that forEach doesn't await anything.",
-    "tags": ["node.js", "async"],
+    "body": "Every few weeks I still forget that `forEach` does not await async work and that a rejected promise without a catch can vanish inside a fire-and-forget loop.\n\nMy current checklist is small but reliable: promise boundaries, unhandled rejection listeners, re-entrancy, and aborting long-running tasks when the request goes away.\n\n```js\nawait Promise.all(tasks.map(task => runTask(task)));\n// treat each task as a boundary, not as a side effect\n```\n\nThe bug pattern I keep revisiting is not about the async syntax itself \u2014 it's the assumptions around when the work is actually complete.",
+    "tags": [
+      "node.js",
+      "async"
+    ],
     "upvotes": 30,
     "downvotes": 3,
     "createdAt": "2026-08-17T01:00:00Z"
@@ -22,9 +28,13 @@
   {
     "id": "p3",
     "authorId": "u3",
-    "title": "Show devfeed: a tiny CLI for scaffolding Express routes",
-    "body": "Built this to stop copy-pasting the same controller/route/service boilerplate. Takes a resource name and generates the files with tests included.",
-    "tags": ["express", "cli", "show-devfeed"],
+    "title": "Show stackTrace: a tiny CLI for scaffolding Express routes",
+    "body": "I built a tiny CLI to stop copy-pasting the same route/controller boilerplate on every Express project. It turns a resource name into a ready-to-edit folder structure with handlers and tests.\n\nThe thing I wanted most was less ceremony and more confidence. The generator is intentionally opinionated, so we can keep style consistent without turning the project into a framework.\n\n```sh\nstacktrace scaffold users\n# generates routes, controller, service, tests\n```\n\nIt isn't meant to replace architecture choices; it's just there to remove the repetitive parts so the team can focus on the risky bits.",
+    "tags": [
+      "express",
+      "cli",
+      "show-stacktrace"
+    ],
     "upvotes": 17,
     "downvotes": 2,
     "createdAt": "2026-08-16T08:00:00Z"
@@ -33,8 +43,11 @@
     "id": "p4",
     "authorId": "u1",
     "title": "Debugging a slow memory leak in a long-running Express server",
-    "body": "Heap snapshots, --inspect, and a stubborn event listener that never got removed. Walking through how I finally traced it.",
-    "tags": ["debugging", "performance"],
+    "body": "We had a node process that looked healthy in logs but kept consuming memory until the machine started swapping. The first clue was a steady climb in event listeners, even when the app looked idle.\n\nThe fix was simple but annoying: tracing where the listeners were bound and ensuring the unsubscribe path ran on shutdown and on retry.\n\n```sh\nnode --inspect-brk app.js\n# pause, take heap snapshot, compare listener counts\n```\n\nThe memory leak wasn't caused by the framework; it was a subtle lifecycle bug in a shared queue that never removed listeners when the consumer was replaced.",
+    "tags": [
+      "debugging",
+      "performance"
+    ],
     "upvotes": 10,
     "downvotes": 1,
     "createdAt": "2026-08-15T08:00:00Z"

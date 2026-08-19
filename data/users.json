@@ -3,18 +3,30 @@
     "id": "u1",
     "username": "amara_codes",
     "displayName": "Amara",
+    "fullName": "Amara Khan",
+    "email": "amara@example.com",
+    "password": "stacktrace123",
+    "avatar": "AK",
     "createdAt": "2026-05-02T10:15:00Z"
   },
   {
     "id": "u2",
     "username": "tomek_b",
     "displayName": "Tomek",
+    "fullName": "Tomek Banas",
+    "email": "tomek@example.com",
+    "password": "stacktrace123",
+    "avatar": "TB",
     "createdAt": "2026-05-10T08:00:00Z"
   },
   {
     "id": "u3",
     "username": "kesh_dev",
     "displayName": "Kesh",
+    "fullName": "Kesh Patel",
+    "email": "kesh@example.com",
+    "password": "stacktrace123",
+    "avatar": "KD",
     "createdAt": "2026-06-01T12:30:00Z"
   }
 ]
