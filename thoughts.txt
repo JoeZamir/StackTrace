@@ -25,9 +25,13 @@ function to read data in the data folder and parse it. Will import fs/promises, 
 utility function to parse req json
 8.	sanitizeJson
 Utility function to sanitize user input data before pushing it
+•	When sanitizing, allow html lags like <pre> and <code>
+•	Check what else is needed in fencing code blocks
+
 9.	createAlert
 used to create alerts on new posts
 10.	addPost
 will use this to add posts. Maybe even comments
+
 
 
