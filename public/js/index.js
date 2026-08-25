@@ -1,7 +1,7 @@
-import { qs, qsa } from "./utils/dom.js";
 import { initMobileNav } from "./utils/nav.js";
-import { refreshAuthStatus } from "./utils/auth-gate.js";
-import { posts } from "../../data/site-data.js";
+import { getPosts } from "./utils/fetchPosts.js";
+import { getComments } from "./utils/comments.js";
+import { enrichPost } from "./site-data.js";
 
 const TOPIC_POOL = [
   "api-design",
@@ -45,7 +45,8 @@ const TOPIC_POOL = [
   "cloud",
 ];
 
-const feedPosts = posts;
+let feedPosts = [];
+let comments = [];
 
 let activeTopic = null;
 
@@ -55,7 +56,7 @@ function getVisiblePosts() {
 }
 
 function buildTopicList() {
-  const container = qs("[data-topic-list]");
+  const container = document.querySelector("[data-topic-list]");
   if (!container) return;
 
   const totals = new Map();
@@ -87,13 +88,13 @@ function syncVoteRow(postId) {
   const post = feedPosts.find((item) => item.id === postId);
   if (!post) return;
 
-  const row = qs(`[data-vote-row][data-post-id="${post.id}"]`);
+  const row = document.querySelector(`[data-vote-row][data-post-id="${post.id}"]`);
   if (!row) return;
 
-  const upButton = qs('[data-vote-button="up"]', row);
-  const downButton = qs('[data-vote-button="down"]', row);
-  const upCount = qs(".post-card__vote-count", upButton ?? row);
-  const downCount = qs(".post-card__vote-count", downButton ?? row);
+  const upButton = document.querySelector('[data-vote-button="up"]', row);
+  const downButton = document.querySelector('[data-vote-button="down"]', row);
+  const upCount = document.querySelector(".post-card__vote-count", upButton ?? row);
+  const downCount = document.querySelector(".post-card__vote-count", downButton ?? row);
 
   if (upButton) {
     const isActive = post.userVote === "up";
@@ -115,7 +116,7 @@ function syncVoteRow(postId) {
 }
 
 function renderFeedPosts() {
-  const list = qs("[data-feed-list]");
+  const list = document.querySelector("[data-feed-list]");
   if (!list) return;
 
   const visiblePosts = getVisiblePosts();
@@ -220,7 +221,7 @@ function updateVoteState(postId, direction) {
 }
 
 function initVoteButtons() {
-  qsa("[data-vote-button]").forEach((button) => {
+  document.querySelectorAll("[data-vote-button]").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.preventDefault();
       updateVoteState(button.dataset.postId, button.dataset.voteButton);
@@ -229,11 +230,11 @@ function initVoteButtons() {
 }
 
 function initTopicFilters() {
-  qsa("[data-topic]").forEach((button) => {
+    document.querySelectorAll("[data-topic]").forEach((button) => {
     button.addEventListener("click", () => {
       const nextTopic = button.dataset.topic;
       activeTopic = activeTopic === nextTopic ? null : nextTopic;
-      qsa("[data-topic]").forEach((topicButton) =>
+      document.querySelectorAll("[data-topic]").forEach((topicButton) =>
         topicButton.classList.toggle(
           "is-active",
           topicButton.dataset.topic === activeTopic,
@@ -245,22 +246,37 @@ function initTopicFilters() {
 }
 
 function initSortToolbar() {
-  const toolbar = qs("[data-sort-toolbar]");
+  const toolbar = document.querySelector("[data-sort-toolbar]");
   if (!toolbar) return;
 
   toolbar.addEventListener("click", (event) => {
     const button = event.target.closest("[data-sort]");
     if (!button) return;
-    qsa("[data-sort]", toolbar).forEach((btn) =>
+    document.querySelectorAll("[data-sort]", toolbar).forEach((btn) =>
       btn.classList.remove("is-active"),
     );
     button.classList.add("is-active");
   });
 }
 
-buildTopicList();
-renderFeedPosts();
-initTopicFilters();
-initSortToolbar();
-refreshAuthStatus();
-initMobileNav();
+function getEnrichedPost(post, comments) {
+  let users = [];
+  const enriched = enrichPost(post, comments, users);
+  return enriched;
+}
+
+async function init() {
+  feedPosts = await getPosts();
+  comments = await getComments();
+  enriched = getEnrichedPost(feedPosts, comments);
+  console.log(enriched);
+
+
+    buildTopicList();
+    renderFeedPosts();
+    initTopicFilters();
+    initSortToolbar();
+    initMobileNav();
+  }
+
+  init();

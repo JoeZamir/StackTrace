@@ -1,0 +1,7 @@
+[
+    { "title": "New post in the feed", "detail": "A note about improved API testing workflows landed in the community feed.", "time": "2m ago" },
+    { "title": "Node debugging thread trending", "detail": "Developers are discussing memory profiling and long-lived worker processes.", "time": "8m ago" },
+    { "title": "Express tooling update", "detail": "A new route scaffolding tool is getting attention from people building quick prototypes.", "time": "17m ago" },
+    { "title": "Design system cleanup", "detail": "The terminal/editorial styling pass is being refined for better contrast and readability.", "time": "24m ago" },
+    { "title": "Release notes shared", "detail": "The team dropped a note about the next learning milestone: frontend polish and live notification UI.", "time": "44m ago" }
+  ]

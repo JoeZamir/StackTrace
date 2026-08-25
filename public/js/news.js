@@ -1,10 +1,9 @@
-import { qs } from "./utils/dom.js";
 import { initMobileNav } from "./utils/nav.js";
-import { refreshAuthStatus } from "./utils/auth-gate.js";
-import { newsItems, posts } from "../../data/site-data.js";
+
+let newsItems = [];
 
 function buildTopicList() {
-  const container = qs("[data-topic-list]");
+  const container = querySelector("[data-topic-list]");
   if (!container) return;
 
   const totals = new Map();
@@ -33,7 +32,7 @@ function buildTopicList() {
 }
 
 function renderNewsItems() {
-  const list = qs("[data-news-list]");
+  const list = querySelector("[data-news-list]");
   if (!list) return;
 
   list.innerHTML = newsItems
@@ -53,5 +52,25 @@ function renderNewsItems() {
 
 renderNewsItems();
 buildTopicList();
-refreshAuthStatus();
 initMobileNav();
+
+
+/*
+const eventSource = new EventSource("/api/news")
+
+const liveContainer = document.getElementById("live-container")
+
+
+// Handle live price updates
+eventSource.onmessage = (event) => {
+  const data = JSON.parse(event.data)
+  const story = data.story
+  liveContainer.textContent = story
+}
+
+// Handle connection loss
+eventSource.onerror = () => {
+  console.log("Connection lost. Attempting to reconnect...")
+}
+
+*/

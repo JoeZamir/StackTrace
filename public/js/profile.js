@@ -1,9 +1,8 @@
-import { qs } from "./utils/dom.js";
 import { initMobileNav } from "./utils/nav.js";
-import { getAuthUser, getStoredUsers, refreshAuthStatus, saveStoredUsers, setAuthUser } from "./utils/auth-gate.js";
+import { getAuthUser, refreshAuthStatus, setAuthUser } from "./utils/auth-gate.js";
 
-const form = qs("[data-profile-form]");
-const feedback = qs("[data-profile-feedback]");
+const form = querySelector("[data-profile-form]");
+const feedback = querySelector("[data-profile-feedback]");
 const currentUser = getAuthUser();
 
 function showMessage(message, isError = false) {
@@ -52,3 +51,4 @@ if (form && currentUser) {
 
 refreshAuthStatus();
 initMobileNav();
+

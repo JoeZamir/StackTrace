@@ -1,14 +1,13 @@
-import { qs } from "./dom.js";
-
 const MAX_TAGS = 5;
 
-// Turns a text input + hidden field into a chip-style tag picker.
 // The hidden input holds a comma-separated value so a normal <form>
 // submit still carries the tags without any fetch/JS-driven networking.
+
+
 export function initTagInput(root) {
-  const input = qs("[data-tag-input]", root);
-  const list = qs("[data-tag-list]", root);
-  const hiddenField = qs("[data-tag-value]", root);
+  const input = document.querySelector("[data-tag-input]", root);
+  const list = document.querySelector("[data-tag-list]", root);
+  const hiddenField = document.querySelector("[data-tag-value]", root);
   if (!input || !list || !hiddenField) return;
 
   const tags = hiddenField.value ? hiddenField.value.split(",") : [];

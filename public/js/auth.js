@@ -1,27 +1,25 @@
-import { qs, qsa } from "./utils/dom.js";
 import { initMobileNav } from "./utils/nav.js";
-import { posts } from "../../data/site-data.js";
+import { getPosts } from "./utils/fetchPosts.js";
 import {
   getAuthUser,
-  getStoredUsers,
   refreshAuthStatus,
-  saveStoredUsers,
   setAuthUser,
   hideAuthWarning,
 } from "./utils/auth-gate.js";
 
-const authModeToggle = qs("[data-auth-mode-toggle]");
-const authForm = qs("[data-auth-form]");
-const authFeedback = qs("[data-auth-feedback]");
-const authSubmit = qs("[data-auth-submit]");
-const signupFields = qsa(
+const authModeToggle = document.querySelector("[data-auth-mode-toggle]");
+const authForm = document.querySelector("[data-auth-form]");
+const authFeedback = document.querySelector("[data-auth-feedback]");
+const authSubmit = document.querySelector("[data-auth-submit]");
+const signupFields = document.querySelectorAll(
   "[data-signup-name], [data-signup-email], [data-signup-username]",
 );
-const loginField = qs("[data-login-identity]");
+const loginField = document.querySelector("[data-login-identity]");
 
 const authState = {
   mode: "login",
 };
+let posts = [];
 
 function setAuthMode(mode) {
   authState.mode = mode;
@@ -34,7 +32,7 @@ function setAuthMode(mode) {
   loginField.hidden = isSignup;
   authSubmit.textContent = isSignup ? "Create account" : "Login";
 
-  qsa("[data-auth-tab]", authModeToggle).forEach((button) => {
+  document.querySelectorAll("[data-auth-tab]", authModeToggle).forEach((button) => {
     const active = button.dataset.authTab === mode;
     button.classList.toggle("is-active", active);
     button.setAttribute("aria-pressed", String(active));
@@ -54,18 +52,8 @@ function showAuthMessage(message, isError = false) {
   authFeedback.classList.toggle("is-error", isError);
 }
 
-function normalizeIdentity(value) {
-  return String(value || "")
-    .trim()
-    .toLowerCase();
-}
-
 function signInUser(user) {
-  setAuthUser({
-    fullName: user.fullName,
-    email: user.email,
-    username: user.username,
-  });
+  setAuthUser(user);
   refreshAuthStatus();
   window.location.href = "index.html";
 }
@@ -81,9 +69,11 @@ function initAuthTabs() {
 }
 
 function initAuthForm() {
+
+
   if (!authForm) return;
 
-  authForm.addEventListener("submit", (event) => {
+  authForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const formData = new FormData(authForm);
@@ -102,26 +92,21 @@ function initAuthForm() {
         return;
       }
 
-      const users = getStoredUsers();
-      const matchedUser = users.find((user) => {
-        const id = normalizeIdentity(identity);
-        return (
-          (normalizeIdentity(user.email) === id ||
-            normalizeIdentity(user.username) === id) &&
-          user.password === password
-        );
-      });
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ identity, password })
+      })
 
-      if (!matchedUser) {
-        showAuthMessage(
-          "We couldn't find a matching account with that email/username and password.",
-          true,
-        );
+      const data = await response.json();
+
+      if (!response.ok) {
+        showAuthMessage(data.error || "Login failed. Please try again.", true);
         return;
       }
 
       hideAuthWarning(authFeedback);
-      signInUser(matchedUser);
+      signInUser(data);
       return;
     }
 
@@ -137,29 +122,22 @@ function initAuthForm() {
       return;
     }
 
-    const users = getStoredUsers();
-    const duplicateUser = users.find(
-      (user) =>
-        normalizeIdentity(user.email) === normalizeIdentity(email) ||
-        normalizeIdentity(user.username) === normalizeIdentity(username),
-    );
+    const response = await fetch('/api/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fullName, email, username, password })
+    });
 
-    if (duplicateUser) {
-      showAuthMessage(
-        "An account with that email or username already exists.",
-        true,
-      );
+    const data = await response.json();
+
+    if (!response.ok) {
+      showAuthMessage(data.error || "Signup failed. Please try again.", true);
       return;
     }
 
-    const nextUser = { fullName, email, username, password };
-    users.push(nextUser);
-    saveStoredUsers(users);
-    showAuthMessage(
-      "Account created. You can now sign in and join the discussion.",
-    );
-    setAuthMode("login");
-    authForm.reset();
+    hideAuthWarning(authFeedback);
+    signInUser(data);
+    return;
   });
 }
 
@@ -175,9 +153,11 @@ function initModeFromUrl() {
   else setAuthMode("login");
 }
 
-function buildTopicList() {
-  const container = qs("[data-topic-list]");
+async function buildTopicList() {
+  const container = document.querySelector("[data-topic-list]");
   if (!container) return;
+
+  posts = await getPosts(); // Fetch posts from the API
 
   const totals = new Map();
   posts.forEach((post) => {
@@ -205,7 +185,7 @@ function buildTopicList() {
 }
 
 refreshAuthStatus();
-buildTopicList();
+await buildTopicList();
 initAuthTabs();
 initAuthForm();
 initModeFromUrl();

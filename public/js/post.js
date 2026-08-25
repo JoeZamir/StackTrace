@@ -1,65 +1,65 @@
-import { qs, qsa } from "./utils/dom.js";
 import { initAutoGrow } from "./utils/textarea.js";
 import { initCharCounter } from "./utils/char-counter.js";
 import { initMobileNav } from "./utils/nav.js";
-import {
-  getAuthUser,
-  isAuthenticated,
-  refreshAuthStatus,
-  showAuthWarning,
-  hideAuthWarning,
-} from "./utils/auth-gate.js";
-import { posts } from "../../data/site-data.js";
+//import { getAuthUser, isAuthenticated, refreshAuthStatus, showAuthWarning, hideAuthWarning} from "./utils/auth-gate.js";
+import { getPosts } from "./utils/fetchPosts.js";
+import { getComments } from "./utils/comments.js";
+import { enrichPost } from "./site-data.js";
 
-const POST_DATA = posts.reduce((map, post) => {
-  map[post.id] = post;
-  map[post.numericId] = post;
-  return map;
-}, {});
+let posts = [];
+let comments = [];
+let postData = {};
+let enrichedPostData = {};
+
+function buildPostData() {
+    postData = posts.reduce((map, post) => {
+      map[post.id] = post;
+      map[post.numericId] = post;
+      return map;
+    }, {});
+}
 
 function getSelectedPost() {
   const id = new URLSearchParams(window.location.search).get("id") || "p1";
-  return POST_DATA[id] || posts[0];
+  return postData[id] || posts[0];
 }
 
 function renderPostPage() {
-  const post = getSelectedPost();
-  const article = qs(".post");
+  const article = document.querySelector(".post");
   if (!article) return;
 
-  article.dataset.postId = String(post.id);
-  article.dataset.authorName = post.author;
+  article.dataset.postId = String(enrichedPostData.id);
+  article.dataset.authorName = enrichedPostData.author;
 
-  const title = qs(".post__title", article);
-  if (title) title.textContent = post.title;
+  const title = document.querySelector(".post__title", article);
+  if (title) title.textContent = enrichedPostData.title;
 
-  const meta = qs(".post__meta", article);
+  const meta = document.querySelector(".post__meta", article);
   if (meta) {
     meta.innerHTML = `
       <div class="byline">
-        <span class="byline__avatar">${post.avatar}</span>
-        <span class="byline__name">${post.author}</span>
+        <span class="byline__avatar">${enrichedPostData.avatar}</span>
+        <span class="byline__name">${enrichedPostData.author}</span>
         <span class="byline__dot"></span>
-        <span>${post.time}</span>
+        <span>${enrichedPostData.time}</span>
       </div>
       <ul class="tag-list">
-        ${post.tags.map((tag) => `<li class="tag-pill">${tag}</li>`).join("")}
+        ${enrichedPostData.tags.map((tag) => `<li class="tag-pill">${tag}</li>`).join("")}
       </ul>
     `;
   }
 
-  const body = qs(".post__body", article);
-  if (body) body.innerHTML = post.bodyHtml;
+  const body = document.querySelector(".post__body", article);
+  if (body) body.innerHTML = enrichedPostData.bodyHtml;
 
-  const commentsSection = qs(".comments", document.body);
+  const commentsSection = document.querySelector(".comments", document.body);
   if (commentsSection) {
-    const comments = Array.isArray(post.commentList) ? post.commentList : [];
-    const count = qs(".comments__count", commentsSection);
-    if (count) count.textContent = `${comments.length} comments`;
+    const count = document.querySelector(".comments__count", commentsSection);
+    if (count) count.textContent = `${enrichedPostData.commentList.length} comments`;
 
-    const list = qs(".comment-list", commentsSection);
+    const list = document.querySelector(".comment-list", commentsSection);
     if (list) {
-      list.innerHTML = comments
+      list.innerHTML = enrichedPostData.commentList
         .map(
           (comment) => `
             <li class="comment" data-comment-author="${comment.author}">
@@ -97,15 +97,15 @@ function renderPostPage() {
     }
   }
 
-  document.title = `${post.title} — stackTrace`;
+  document.title = `${enrichedPostData.title} — stackTrace`;
 }
 
 
 function updateInlineVote(row, source) {
-  const upButton = qs('[data-vote-button="up"]', row);
-  const downButton = qs('[data-vote-button="down"]', row);
-  const upCount = qs(".post-card__vote-count", upButton ?? row);
-  const downCount = qs(".post-card__vote-count", downButton ?? row);
+  const upButton = document.querySelector('[data-vote-button="up"]', row);
+  const downButton = document.querySelector('[data-vote-button="down"]', row);
+  const upCount = document.querySelector(".post-card__vote-count", upButton ?? row);
+  const downCount = document.querySelector(".post-card__vote-count", downButton ?? row);
 
   if (upButton) {
     const active = source.userVote === "up";
@@ -141,29 +141,30 @@ function updateVoteState(source, direction, row) {
 }
 
 function initPostVoteRows(post) {
-  const postRow = qs("[data-post-vote]");
+  const postRow = document.querySelector("[data-post-vote]");
   if (postRow) {
     postRow.dataset.postId = post.id;
     updateInlineVote(postRow, post);
   }
 
-  qsa("[data-vote-row]").forEach((row) => {
+  document.querySelectorAll("[data-vote-row]").forEach((row) => {
     row.addEventListener("click", (event) => {
       const button = event.target.closest("[data-vote-button]");
       if (!button) return;
       event.preventDefault();
       const source = row.dataset.commentId
-        ? post.commentList.find((comment) => comment.id === row.dataset.commentId)
-        : post;
+        ? enrichedPostData.commentList.find((comment) => comment.id === row.dataset.commentId)
+        : enrichedPostData;
       if (source) updateVoteState(source, button.dataset.voteButton, row);
     });
   });
 }
 
+/*
 function applyPostAuthorState() {
   const currentUser = getAuthUser()?.username;
-  const post = qs(".post");
-  const actions = qs("[data-post-actions]");
+  const post = document.querySelector(".post");
+  const actions = document.querySelector("[data-post-actions]");
   const postAuthor = post?.dataset.authorName;
 
   if (actions) {
@@ -173,13 +174,14 @@ function applyPostAuthorState() {
     actions.hidden = !canManage;
   }
 }
+*/
 
 function applyCommentComposerState(commentForm) {
   if (!commentForm) return;
 
-  const input = qs("[data-comment-input]", commentForm);
-  const submit = qs("button[type='submit']", commentForm);
-  const warning = qs("[data-comment-warning]", commentForm);
+  const input = document.querySelector("[data-comment-input]", commentForm);
+  const submit = document.querySelector("button[type='submit']", commentForm);
+  const warning = document.querySelector("[data-comment-warning]", commentForm);
   const guest = !isAuthenticated();
 
   if (input) {
@@ -204,16 +206,16 @@ function applyCommentComposerState(commentForm) {
 }
 
 function initCommentForms() {
-  const forms = qsa("[data-comment-form]");
+  const forms = document.querySelectorAll("[data-comment-form]");
   forms.forEach((form) => {
     form.addEventListener("submit", (event) => {
       if (!isAuthenticated()) {
         event.preventDefault();
-        showAuthWarning(qs("[data-comment-warning]", form), "comment");
+        showAuthWarning(document.querySelector("[data-comment-warning]", form), "comment");
         return;
       }
 
-      hideAuthWarning(qs("[data-comment-warning]", form));
+      hideAuthWarning(document.querySelector("[data-comment-warning]", form));
     });
 
     applyCommentComposerState(form);
@@ -221,7 +223,7 @@ function initCommentForms() {
 }
 
 function initReplyToggles() {
-  qsa("[data-reply-toggle]").forEach((button) => {
+  document.querySelectorAll("[data-reply-toggle]").forEach((button) => {
     const form = button.closest(".comment")?.querySelector("[data-reply-form]");
     if (!form) return;
 
@@ -237,15 +239,15 @@ function initReplyToggles() {
       hideAuthWarning(form.querySelector("[data-reply-warning]"));
 
       if (!isOpen) {
-        const input = qs("[data-reply-input]", form);
+        const input = document.querySelector("[data-reply-input]", form);
         input?.focus();
       }
     });
 
     const replyForm = form;
-    const replyInput = qs("[data-reply-input]", replyForm);
-    const replySubmit = qs("button[type='submit']", replyForm);
-    const replyWarning = qs("[data-reply-warning]", replyForm);
+    const replyInput = document.querySelector("[data-reply-input]", replyForm);
+    const replySubmit = document.querySelector("button[type='submit']", replyForm);
+    const replyWarning = document.querySelector("[data-reply-warning]", replyForm);
 
     if (replyInput) {
       replyInput.disabled = !isAuthenticated();
@@ -270,13 +272,13 @@ function initReplyToggles() {
 }
 
 function initDeleteConfirm() {
-  const deleteBtn = qs("[data-delete-post]");
+  const deleteBtn = document.querySelector("[data-delete-post]");
   if (!deleteBtn) return;
 
   deleteBtn.addEventListener("click", (event) => {
     if (!isAuthenticated()) {
       event.preventDefault();
-      showAuthWarning(qs("[data-post-warning]"), "delete this post");
+      showAuthWarning(document.querySelector("[data-post-warning]"), "delete this post");
       return;
     }
 
@@ -284,15 +286,28 @@ function initDeleteConfirm() {
     if (!confirmed) event.preventDefault();
   });
 }
+async function initPostCommentSection() {
+    comments = await getComments(getSelectedPost().id);
+}
 
-function initPostPage() {
-  renderPostPage();
-  refreshAuthStatus();
-  applyPostAuthorState();
-  initPostVoteRows(getSelectedPost());
-  initAutoGrow("[data-autogrow]");
-  initCharCounter("[data-comment-input]", "[data-comment-counter]", 500);
-  qsa("[data-reply-input]").forEach((input) => {
+function getEnrichedPost(post, comments) {
+    let users = [];
+    const enriched = enrichPost(post, comments, users);
+    return enriched;
+}
+async function initPostPage() {
+
+    posts = await getPosts();
+    buildPostData();
+    await initPostCommentSection();
+    enrichedPostData = getEnrichedPost(getSelectedPost(), comments);
+    renderPostPage();
+    //refreshAuthStatus();
+    //applyPostAuthorState();
+    initPostVoteRows(getSelectedPost());
+    initAutoGrow("[data-autogrow]");
+    initCharCounter("[data-comment-input]", "[data-comment-counter]", 500);
+  document.querySelectorAll("[data-reply-input]").forEach((input) => {
     const form = input.closest("[data-reply-form]");
     const counter = form?.querySelector("[data-reply-counter]");
     if (counter) {
@@ -309,5 +324,19 @@ function initPostPage() {
   initDeleteConfirm();
   initMobileNav();
 }
+// temporary stubs, until auth-gate.js is done
+function isAuthenticated() {
+  return false;
+}
+function showAuthWarning(warningElement, action) {
+    if (!warningElement) return;
+    warningElement.textContent = `Sign in to ${action}.`;
+    warningElement.hidden = false;
+  }
+
+  function hideAuthWarning(warningElement) {
+    if (!warningElement) return;
+    warningElement.hidden = true;
+  }
 
 initPostPage();
