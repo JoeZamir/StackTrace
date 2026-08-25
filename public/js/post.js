@@ -1,7 +1,7 @@
 import { initAutoGrow } from "./utils/textarea.js";
 import { initCharCounter } from "./utils/char-counter.js";
 import { initMobileNav } from "./utils/nav.js";
-//import { getAuthUser, isAuthenticated, refreshAuthStatus, showAuthWarning, hideAuthWarning} from "./utils/auth-gate.js";
+import { getAuthUser, isAuthenticated, refreshAuthStatus, showAuthWarning, hideAuthWarning} from "./utils/auth-gate.js";
 import { getPosts } from "./utils/fetchPosts.js";
 import { getComments } from "./utils/comments.js";
 import { enrichPost } from "./site-data.js";
@@ -160,7 +160,7 @@ function initPostVoteRows(post) {
   });
 }
 
-/*
+
 function applyPostAuthorState() {
   const currentUser = getAuthUser()?.username;
   const post = document.querySelector(".post");
@@ -174,7 +174,7 @@ function applyPostAuthorState() {
     actions.hidden = !canManage;
   }
 }
-*/
+
 
 function applyCommentComposerState(commentForm) {
   if (!commentForm) return;
@@ -302,8 +302,8 @@ async function initPostPage() {
     await initPostCommentSection();
     enrichedPostData = getEnrichedPost(getSelectedPost(), comments);
     renderPostPage();
-    //refreshAuthStatus();
-    //applyPostAuthorState();
+    refreshAuthStatus();
+    applyPostAuthorState();
     initPostVoteRows(getSelectedPost());
     initAutoGrow("[data-autogrow]");
     initCharCounter("[data-comment-input]", "[data-comment-counter]", 500);
@@ -324,19 +324,5 @@ async function initPostPage() {
   initDeleteConfirm();
   initMobileNav();
 }
-// temporary stubs, until auth-gate.js is done
-function isAuthenticated() {
-  return false;
-}
-function showAuthWarning(warningElement, action) {
-    if (!warningElement) return;
-    warningElement.textContent = `Sign in to ${action}.`;
-    warningElement.hidden = false;
-  }
-
-  function hideAuthWarning(warningElement) {
-    if (!warningElement) return;
-    warningElement.hidden = true;
-  }
 
 initPostPage();

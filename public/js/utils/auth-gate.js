@@ -72,7 +72,7 @@ export function refreshAuthStatus(scope = document) {
       node.innerHTML = `<a href="auth.html">Login</a><span>/</span><a href="auth.html?mode=signup">Sign up</a>`;
     }
     const trigger = node.querySelector("[data-account-trigger]");
-    const menu = node.querySelector("[data-account-menu]", node);
+    const menu = node.querySelector("[data-account-menu]");
     trigger?.addEventListener("click", () => { const open = menu.hidden; closeAccountMenus(menu); menu.hidden = !open; trigger.setAttribute("aria-expanded", String(open)); });
     node.querySelector("[data-signout]")?.addEventListener("click", () => { clearAuthUser(); refreshAuthStatus(); window.location.href = "index.html"; });
   });

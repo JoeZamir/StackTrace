@@ -1,4 +1,4 @@
-export async function parseJSONBody(req) {
+export async function parseJSON(req) {
     let body = ''
 
     for await (const chunk of req) {

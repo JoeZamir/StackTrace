@@ -1,8 +1,8 @@
 import { initMobileNav } from "./utils/nav.js";
 import { getAuthUser, refreshAuthStatus, setAuthUser } from "./utils/auth-gate.js";
 
-const form = querySelector("[data-profile-form]");
-const feedback = querySelector("[data-profile-feedback]");
+const form = document.querySelector("[data-profile-form]");
+const feedback = document.querySelector("[data-profile-feedback]");
 const currentUser = getAuthUser();
 
 function showMessage(message, isError = false) {

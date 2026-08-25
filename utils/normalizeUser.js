@@ -1,4 +1,4 @@
-function normalizeUser(rawUser, existingUsers) {
+export function normalizeUser(rawUser, existingUsers) {
     const { username, fullName, email, password, avatar } = rawUser;
 
     return {

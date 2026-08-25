@@ -2,6 +2,7 @@ import http from 'node:http'
 import { serveStatic } from './utils/serveStatic.js'
 import { handleGetPosts, handleGetComments } from './handlers/routeHandlers.js'
 import { handleSignup } from './auth/handleSignup.js'
+import { handleLogin } from './auth/handleLogin.js'
 
 const PORT = process.env.PORT || 8000;
 

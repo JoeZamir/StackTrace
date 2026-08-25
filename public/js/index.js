@@ -1,7 +1,5 @@
 import { initMobileNav } from "./utils/nav.js";
 import { getPosts } from "./utils/fetchPosts.js";
-import { getComments } from "./utils/comments.js";
-import { enrichPost } from "./site-data.js";
 
 const TOPIC_POOL = [
   "api-design",
@@ -46,7 +44,6 @@ const TOPIC_POOL = [
 ];
 
 let feedPosts = [];
-let comments = [];
 
 let activeTopic = null;
 
@@ -259,17 +256,10 @@ function initSortToolbar() {
   });
 }
 
-function getEnrichedPost(post, comments) {
-  let users = [];
-  const enriched = enrichPost(post, comments, users);
-  return enriched;
-}
+
 
 async function init() {
   feedPosts = await getPosts();
-  comments = await getComments();
-  enriched = getEnrichedPost(feedPosts, comments);
-  console.log(enriched);
 
 
     buildTopicList();

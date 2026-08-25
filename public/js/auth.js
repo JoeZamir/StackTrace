@@ -27,9 +27,11 @@ function setAuthMode(mode) {
 
   signupFields.forEach((field) => {
     field.hidden = !isSignup;
+    field.required = isSignup ? true : false;
   });
 
   loginField.hidden = isSignup;
+  loginField.required = !isSignup ? true : false;
   authSubmit.textContent = isSignup ? "Create account" : "Login";
 
   document.querySelectorAll("[data-auth-tab]", authModeToggle).forEach((button) => {
