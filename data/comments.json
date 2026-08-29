@@ -1,74 +1,848 @@
 [
   {
-    "id": "c1",
-    "postId": "p1",
-    "authorId": "u2",
-    "body": "The caching trade-off is real. We ended up putting React Query on top of tRPC just to claw back some of what we lost from HTTP caching.",
-    "upvotes": 11,
-    "downvotes": 0,
-    "createdAt": "2026-08-17T07:00:00Z"
+  "id": "c1",
+  "postId": "p1",
+  "authorId": "u2",
+  "body": "The caching trade-off is real. We ended up putting React Query on top of tRPC just to claw back some of what we lost from HTTP caching.",
+  "upvotes": 11,
+  "downvotes": 0,
+  "createdAt": "2026-08-17T07:00:00Z"
   },
   {
-    "id": "c2",
-    "postId": "p1",
-    "authorId": "u3",
-    "body": "Curious how you're handling public-facing endpoints — did you keep those on REST or go full tRPC there too?",
-    "upvotes": 6,
-    "downvotes": 0,
-    "createdAt": "2026-08-17T08:00:00Z"
+  "id": "c2",
+  "postId": "p1",
+  "authorId": "u3",
+  "body": "Curious how you're handling public-facing endpoints - did you keep those on REST or go full tRPC there too?",
+  "upvotes": 6,
+  "downvotes": 0,
+  "createdAt": "2026-08-17T08:00:00Z"
   },
   {
-    "id": "c3",
-    "postId": "p1",
-    "authorId": "u1",
-    "body": "Kept REST for anything public — tRPC's coupling to a TS client isn't worth it once you don't control who's calling the API.",
-    "upvotes": 3,
-    "downvotes": 0,
-    "createdAt": "2026-08-17T08:15:00Z"
+  "id": "c3",
+  "postId": "p1",
+  "authorId": "u1",
+  "body": "Kept REST for anything public - tRPC's coupling to a TS client isn't worth it once you don't control who's calling the API.",
+  "upvotes": 3,
+  "downvotes": 0,
+  "createdAt": "2026-08-17T08:15:00Z"
   },
   {
-    "id": "c4",
-    "postId": "p2",
-    "authorId": "u1",
-    "body": "The memo here is that Promise.all is not a magic fix if one routine stalls forever.",
-    "upvotes": 5,
-    "downvotes": 0,
-    "createdAt": "2026-08-17T03:00:00Z"
+  "id": "c4",
+  "postId": "p2",
+  "authorId": "u1",
+  "body": "The memo here is that Promise.all is not a magic fix if one routine stalls forever.",
+  "upvotes": 5,
+  "downvotes": 0,
+  "createdAt": "2026-08-17T03:00:00Z"
   },
   {
-    "id": "c5",
-    "postId": "p2",
-    "authorId": "u3",
-    "body": "I keep a tiny helper to wrap each task in a timeout so the failure mode stays obvious.",
-    "upvotes": 4,
-    "downvotes": 0,
-    "createdAt": "2026-08-17T05:00:00Z"
+  "id": "c5",
+  "postId": "p2",
+  "authorId": "u3",
+  "body": "I keep a tiny helper to wrap each task in a timeout so the failure mode stays obvious.",
+  "upvotes": 4,
+  "downvotes": 0,
+  "createdAt": "2026-08-17T05:00:00Z"
   },
   {
-    "id": "c6",
-    "postId": "p3",
-    "authorId": "u2",
-    "body": "This is exactly the kind of tool I end up writing in a side quest and then never shipping.",
-    "upvotes": 7,
-    "downvotes": 1,
-    "createdAt": "2026-08-16T14:00:00Z"
+  "id": "c6",
+  "postId": "p3",
+  "authorId": "u2",
+  "body": "This is exactly the kind of tool I end up writing in a side quest and then never shipping.",
+  "upvotes": 7,
+  "downvotes": 1,
+  "createdAt": "2026-08-16T14:00:00Z"
   },
   {
-    "id": "c7",
-    "postId": "p3",
-    "authorId": "u1",
-    "body": "The best scaffolds feel opinionated without feeling heavy.",
-    "upvotes": 6,
-    "downvotes": 0,
-    "createdAt": "2026-08-16T20:00:00Z"
+  "id": "c7",
+  "postId": "p3",
+  "authorId": "u1",
+  "body": "The best scaffolds feel opinionated without feeling heavy.",
+  "upvotes": 6,
+  "downvotes": 0,
+  "createdAt": "2026-08-16T20:00:00Z"
   },
   {
-    "id": "c8",
-    "postId": "p4",
-    "authorId": "u3",
-    "body": "The hidden cost of a shared queue is that the leak only shows up under exactly the right churn pattern.",
-    "upvotes": 8,
-    "downvotes": 0,
-    "createdAt": "2026-08-15T09:00:00Z"
+  "id": "c8",
+  "postId": "p4",
+  "authorId": "u3",
+  "body": "The hidden cost of a shared queue is that the leak only shows up under exactly the right churn pattern.",
+  "upvotes": 8,
+  "downvotes": 0,
+  "createdAt": "2026-08-15T09:00:00Z"
+  },
+  {
+  "id": "c9",
+  "postId": "p4",
+  "authorId": "u7",
+  "body": "Did you use heap snapshots to confirm the listeners were being retained, or did the listener count give you enough evidence?",
+  "upvotes": 5,
+  "downvotes": 0,
+  "createdAt": "2026-08-15T10:30:00Z"
+  },
+  {
+  "id": "c10",
+  "postId": "p4",
+  "authorId": "u1",
+  "body": "Heap snapshots confirmed it. The listener count was what made me start looking in that direction.",
+  "upvotes": 3,
+  "downvotes": 0,
+  "createdAt": "2026-08-15T11:10:00Z"
+  },
+  {
+  "id": "c11",
+  "postId": "p5",
+  "authorId": "u13",
+  "body": "The ransom note description is painfully accurate. At some point I stop reading the classes and just start guessing.",
+  "upvotes": 9,
+  "downvotes": 0,
+  "createdAt": "2026-08-15T12:00:00Z"
+  },
+  {
+  "id": "c12",
+  "postId": "p5",
+  "authorId": "u18",
+  "body": "I usually extract the component before I reach for @apply too. Makes the responsive variants much easier to reason about.",
+  "upvotes": 6,
+  "downvotes": 0,
+  "createdAt": "2026-08-15T13:25:00Z"
+  },
+  {
+  "id": "c13",
+  "postId": "p5",
+  "authorId": "u31",
+  "body": "I've found that a long class list isn't necessarily bad if the component is tiny. It's when the same 15 classes show up in five places that I get nervous.",
+  "upvotes": 8,
+  "downvotes": 1,
+  "createdAt": "2026-08-15T15:40:00Z"
+  },
+  {
+  "id": "c14",
+  "postId": "p5",
+  "authorId": "u29",
+  "body": "Exactly. Duplication is sometimes less painful than inventing an abstraction just to shorten the HTML.",
+  "upvotes": 4,
+  "downvotes": 0,
+  "createdAt": "2026-08-16T08:15:00Z"
+  },
+  {
+  "id": "c15",
+  "postId": "p6",
+  "authorId": "u7",
+  "body": "The fact that the bug only appeared after switching tabs a few times is classic subscription cleanup territory.",
+  "upvotes": 12,
+  "downvotes": 0,
+  "createdAt": "2026-08-16T11:10:00Z"
+  },
+  {
+  "id": "c16",
+  "postId": "p6",
+  "authorId": "u18",
+  "body": "React Strict Mode actually caught something similar for me. Seeing the effect run twice finally made me check whether I was cleaning things up.",
+  "upvotes": 10,
+  "downvotes": 0,
+  "createdAt": "2026-08-16T12:00:00Z"
+  },
+  {
+  "id": "c17",
+  "postId": "p6",
+  "authorId": "u13",
+  "body": "Same. I used to think the Strict Mode behavior was just annoying until it caught an actual lifecycle bug.",
+  "upvotes": 7,
+  "downvotes": 0,
+  "createdAt": "2026-08-16T13:45:00Z"
+  },
+  {
+  "id": "c18",
+  "postId": "p6",
+  "authorId": "u1",
+  "body": "This is also why I prefer putting the cleanup immediately next to the setup. Much harder to forget what needs undoing.",
+  "upvotes": 5,
+  "downvotes": 1,
+  "createdAt": "2026-08-16T15:20:00Z"
+  },
+  {
+  "id": "c19",
+  "postId": "p7",
+  "authorId": "u42",
+  "body": "EXPLAIN ANALYZE should honestly be one of the first things people learn before adding indexes.",
+  "upvotes": 14,
+  "downvotes": 0,
+  "createdAt": "2026-08-16T14:00:00Z"
+  },
+  {
+  "id": "c20",
+  "postId": "p7",
+  "authorId": "u46",
+  "body": "The write overhead is the part I didn't appreciate either. Read performance gets all the attention because it's easier to demonstrate.",
+  "upvotes": 9,
+  "downvotes": 0,
+  "createdAt": "2026-08-16T15:15:00Z"
+  },
+  {
+  "id": "c21",
+  "postId": "p7",
+  "authorId": "u24",
+  "body": "Also worth checking index size. I've inherited tables where the indexes took more space than the actual data.",
+  "upvotes": 11,
+  "downvotes": 0,
+  "createdAt": "2026-08-16T17:30:00Z"
+  },
+  {
+  "id": "c22",
+  "postId": "p7",
+  "authorId": "u31",
+  "body": "That's exactly what happened to us. We had an index for a query that ran maybe twice a day.",
+  "upvotes": 6,
+  "downvotes": 0,
+  "createdAt": "2026-08-17T08:20:00Z"
+  },
+  {
+  "id": "c23",
+  "postId": "p7",
+  "authorId": "u20",
+  "body": "Partial indexes have been useful for us when only a small subset of rows is queried regularly.",
+  "upvotes": 8,
+  "downvotes": 0,
+  "createdAt": "2026-08-17T10:05:00Z"
+  },
+  {
+  "id": "c24",
+  "postId": "p7",
+  "authorId": "u39",
+  "body": "Yeah, indexing everything because 'we might query it' is a surprisingly expensive habit.",
+  "upvotes": 5,
+  "downvotes": 1,
+  "createdAt": "2026-08-17T12:45:00Z"
+  },
+  {
+  "id": "c25",
+  "postId": "p8",
+  "authorId": "u3",
+  "body": "Shared types are probably my favorite part of TypeScript in full-stack projects.",
+  "upvotes": 10,
+  "downvotes": 0,
+  "createdAt": "2026-08-17T10:30:00Z"
+  },
+  {
+  "id": "c26",
+  "postId": "p8",
+  "authorId": "u1",
+  "body": "Same. The compiler basically becomes another person checking that the frontend and backend are still speaking the same language.",
+  "upvotes": 7,
+  "downvotes": 0,
+  "createdAt": "2026-08-17T11:15:00Z"
+  },
+  {
+  "id": "c27",
+  "postId": "p8",
+  "authorId": "u13",
+  "body": "Although I've definitely had TypeScript errors that were technically correct and still took me an hour to understand.",
+  "upvotes": 8,
+  "downvotes": 1,
+  "createdAt": "2026-08-17T13:00:00Z"
+  },
+  {
+  "id": "c28",
+  "postId": "p8",
+  "authorId": "u18",
+  "body": "That's the tax. The compiler saves you from one class of bugs and occasionally introduces a new class of emotional damage.",
+  "upvotes": 12,
+  "downvotes": 0,
+  "createdAt": "2026-08-17T14:10:00Z"
+  },
+  {
+  "id": "c29",
+  "postId": "p9",
+  "authorId": "u6",
+  "body": "SQLite is fantastic for local development. Being able to delete the database and recreate it in seconds is hard to beat.",
+  "upvotes": 9,
+  "downvotes": 0,
+  "createdAt": "2026-08-17T13:30:00Z"
+  },
+  {
+  "id": "c30",
+  "postId": "p9",
+  "authorId": "u42",
+  "body": "Exactly. I think people sometimes jump to Postgres because it's what they expect a 'real' app to use.",
+  "upvotes": 7,
+  "downvotes": 0,
+  "createdAt": "2026-08-17T15:00:00Z"
+  },
+  {
+  "id": "c31",
+  "postId": "p9",
+  "authorId": "u46",
+  "body": "The important question is what the workload actually needs. SQLite can take you surprisingly far.",
+  "upvotes": 8,
+  "downvotes": 1,
+  "createdAt": "2026-08-17T16:45:00Z"
+  },
+  {
+  "id": "c32",
+  "postId": "p10",
+  "authorId": "u2",
+  "body": "Request IDs are one of those tiny things that suddenly make logs usable once you have concurrent requests.",
+  "upvotes": 11,
+  "downvotes": 0,
+  "createdAt": "2026-08-17T16:00:00Z"
+  },
+  {
+  "id": "c33",
+  "postId": "p10",
+  "authorId": "u7",
+  "body": "I started doing this after accidentally debugging three users' requests at the same time. Never again.",
+  "upvotes": 8,
+  "downvotes": 0,
+  "createdAt": "2026-08-17T17:10:00Z"
+  },
+  {
+  "id": "c34",
+  "postId": "p10",
+  "authorId": "u24",
+  "body": "Do you generate the request ID in Express or at the reverse proxy?",
+  "upvotes": 4,
+  "downvotes": 0,
+  "createdAt": "2026-08-18T08:20:00Z"
+  },
+  {
+  "id": "c35",
+  "postId": "p10",
+  "authorId": "u7",
+  "body": "At the app layer for now. We also accept an incoming ID when the proxy provides one.",
+  "upvotes": 5,
+  "downvotes": 0,
+  "createdAt": "2026-08-18T09:05:00Z"
+  },
+  {
+  "id": "c36",
+  "postId": "p11",
+  "authorId": "u35",
+  "body": "Container queries made cards so much easier to reuse. I don't have to keep asking what breakpoint the parent happens to be at.",
+  "upvotes": 13,
+  "downvotes": 0,
+  "createdAt": "2026-08-18T08:30:00Z"
+  },
+  {
+  "id": "c37",
+  "postId": "p11",
+  "authorId": "u27",
+  "body": "The mental shift from viewport-first to component-first responsive design is the biggest part for me.",
+  "upvotes": 9,
+  "downvotes": 0,
+  "createdAt": "2026-08-18T09:15:00Z"
+  },
+  {
+  "id": "c38",
+  "postId": "p11",
+  "authorId": "u29",
+  "body": "I still use media queries for page-level layout, but container queries are great for the actual components.",
+  "upvotes": 7,
+  "downvotes": 0,
+  "createdAt": "2026-08-18T11:00:00Z"
+  },
+  {
+  "id": "c39",
+  "postId": "p11",
+  "authorId": "u18",
+  "body": "Same. I don't think they replace media queries, they just solve a different problem.",
+  "upvotes": 6,
+  "downvotes": 1,
+  "createdAt": "2026-08-18T12:35:00Z"
+  },
+  {
+  "id": "c40",
+  "postId": "p12",
+  "authorId": "u24",
+  "body": "900MB to 200MB is a pretty serious reduction. What was taking up most of the original image?",
+  "upvotes": 8,
+  "downvotes": 0,
+  "createdAt": "2026-08-18T12:00:00Z"
+  },
+  {
+  "id": "c41",
+  "postId": "p12",
+  "authorId": "u44",
+  "body": "Mostly dev dependencies and stuff copied from the project root that never needed to be in the runtime image.",
+  "upvotes": 6,
+  "downvotes": 0,
+  "createdAt": "2026-08-18T13:30:00Z"
+  },
+  {
+  "id": "c42",
+  "postId": "p12",
+  "authorId": "u46",
+  "body": "Multi-stage builds are one of those Docker features that sounds complicated until you actually use one.",
+  "upvotes": 7,
+  "downvotes": 0,
+  "createdAt": "2026-08-18T15:10:00Z"
+  },
+  {
+  "id": "c43",
+  "postId": "p13",
+  "authorId": "u15",
+  "body": "This is basically the difference between 'the API is fast' and 'the page feels fast'. They're not the same thing.",
+  "upvotes": 14,
+  "downvotes": 0,
+  "createdAt": "2026-08-18T14:00:00Z"
+  },
+  {
+  "id": "c44",
+  "postId": "p13",
+  "authorId": "u36",
+  "body": "Skeleton loaders helped us too, but only after we stopped using one giant loading state for the whole page.",
+  "upvotes": 10,
+  "downvotes": 0,
+  "createdAt": "2026-08-18T15:20:00Z"
+  },
+  {
+  "id": "c45",
+  "postId": "p13",
+  "authorId": "u44",
+  "body": "I've also started questioning whether every dashboard widget needs to load immediately. Some of them can wait until they're actually visible.",
+  "upvotes": 8,
+  "downvotes": 0,
+  "createdAt": "2026-08-18T17:00:00Z"
+  },
+  {
+  "id": "c46",
+  "postId": "p13",
+  "authorId": "u7",
+  "body": "That's a good point. Lazy loading isn't just for images.",
+  "upvotes": 5,
+  "downvotes": 1,
+  "createdAt": "2026-08-19T08:30:00Z"
+  },
+  {
+  "id": "c47",
+  "postId": "p14",
+  "authorId": "u6",
+  "body": "We actually had a similar handler and ended up losing the original stack trace because the error was logged after it had already been wrapped.",
+  "upvotes": 9,
+  "downvotes": 0,
+  "createdAt": "2026-08-18T17:00:00Z"
+  },
+  {
+  "id": "c48",
+  "postId": "p14",
+  "authorId": "u2",
+  "body": "Generic client errors plus detailed server logs is the sweet spot. Users don't need to know your file paths.",
+  "upvotes": 8,
+  "downvotes": 0,
+  "createdAt": "2026-08-19T07:45:00Z"
+  },
+  {
+  "id": "c49",
+  "postId": "p14",
+  "authorId": "u42",
+  "body": "Also worth making sure the error middleware is actually the last error-handling middleware in the chain. Learned that one the hard way.",
+  "upvotes": 6,
+  "downvotes": 0,
+  "createdAt": "2026-08-19T09:20:00Z"
+  },
+  {
+  "id": "c50",
+  "postId": "p15",
+  "authorId": "u29",
+  "body": "The number of divs pretending to be buttons I've found in production is honestly concerning.",
+  "upvotes": 15,
+  "downvotes": 0,
+  "createdAt": "2026-08-19T09:00:00Z"
+  },
+  {
+  "id": "c51",
+  "postId": "p15",
+  "authorId": "u13",
+  "body": "And then someone adds ```role=\"button\"``` and thinks they've solved it.",
+  "upvotes": 12,
+  "downvotes": 0,
+  "createdAt": "2026-08-19T10:15:00Z"
+  },
+  {
+  "id": "c52",
+  "postId": "p15",
+  "authorId": "u18",
+  "body": "Native elements are seriously underrated. The browser gives you keyboard behavior, focus behavior and semantics for free.",
+  "upvotes": 14,
+  "downvotes": 0,
+  "createdAt": "2026-08-19T11:30:00Z"
+  },
+  {
+  "id": "c53",
+  "postId": "p15",
+  "authorId": "u7",
+  "body": "This is why I try to use ARIA as a last resort rather than the first solution.",
+  "upvotes": 8,
+  "downvotes": 0,
+  "createdAt": "2026-08-19T13:05:00Z"
+  },
+  {
+  "id": "c54",
+  "postId": "p15",
+  "authorId": "u31",
+  "body": "Five minutes for a proper button beats an afternoon trying to make a div behave like one.",
+  "upvotes": 10,
+  "downvotes": 1,
+  "createdAt": "2026-08-19T14:20:00Z"
+  },
+  {
+  "id": "c55",
+  "postId": "p16",
+  "authorId": "u20",
+  "body": "Failing at startup is so much better than finding out when someone hits the one endpoint that uses the missing variable.",
+  "upvotes": 10,
+  "downvotes": 0,
+  "createdAt": "2026-08-19T13:00:00Z"
+  },
+  {
+  "id": "c56",
+  "postId": "p16",
+  "authorId": "u6",
+  "body": "We use a schema for env validation now. It also catches things like a port accidentally being treated as a string.",
+  "upvotes": 7,
+  "downvotes": 0,
+  "createdAt": "2026-08-19T14:10:00Z"
+  },
+  {
+  "id": "c57",
+  "postId": "p16",
+  "authorId": "u24",
+  "body": "Do you validate optional variables too, or only the required ones?",
+  "upvotes": 3,
+  "downvotes": 0,
+  "createdAt": "2026-08-19T15:00:00Z"
+  },
+  {
+  "id": "c58",
+  "postId": "p16",
+  "authorId": "u20",
+  "body": "Required ones at startup. Optional ones get defaults where that makes sense.",
+  "upvotes": 4,
+  "downvotes": 0,
+  "createdAt": "2026-08-19T16:10:00Z"
+  },
+  {
+  "id": "c59",
+  "postId": "p17",
+  "authorId": "u39",
+  "body": "N+1 problems are especially nasty because the individual queries can all look completely harmless.",
+  "upvotes": 13,
+  "downvotes": 0,
+  "createdAt": "2026-08-19T15:00:00Z"
+  },
+  {
+  "id": "c60",
+  "postId": "p17",
+  "authorId": "u31",
+  "body": "51 requests for 50 projects is the kind of thing that looks fine in development with five records.",
+  "upvotes": 11,
+  "downvotes": 0,
+  "createdAt": "2026-08-19T16:20:00Z"
+  },
+  {
+  "id": "c61",
+  "postId": "p17",
+  "authorId": "u42",
+  "body": "Exactly. Small development datasets hide this stuff really well.",
+  "upvotes": 7,
+  "downvotes": 0,
+  "createdAt": "2026-08-19T17:40:00Z"
+  },
+  {
+  "id": "c62",
+  "postId": "p17",
+  "authorId": "u46",
+  "body": "I usually check the browser network tab now whenever a page feels slow. It's amazing how quickly a list can turn into dozens of requests.",
+  "upvotes": 9,
+  "downvotes": 1,
+  "createdAt": "2026-08-20T08:10:00Z"
+  },
+  {
+  "id": "c63",
+  "postId": "p18",
+  "authorId": "u15",
+  "body": "The first time I went back to a slow bundler after using Vite I thought something was broken.",
+  "upvotes": 8,
+  "downvotes": 0,
+  "createdAt": "2026-08-20T09:00:00Z"
+  },
+  {
+  "id": "c64",
+  "postId": "p18",
+  "authorId": "u27",
+  "body": "Fast feedback definitely makes me more willing to try things. If every change takes ages, I start second guessing whether it's worth experimenting.",
+  "upvotes": 7,
+  "downvotes": 0,
+  "createdAt": "2026-08-20T10:30:00Z"
+  },
+  {
+  "id": "c65",
+  "postId": "p18",
+  "authorId": "u18",
+  "body": "HMR alone is enough to make me not want to go back.",
+  "upvotes": 6,
+  "downvotes": 0,
+  "createdAt": "2026-08-20T12:00:00Z"
+  },
+  {
+  "id": "c66",
+  "postId": "p19",
+  "authorId": "u32",
+  "body": "The merge conflict is usually just the final boss. The real problem started when nobody agreed on the interface.",
+  "upvotes": 12,
+  "downvotes": 0,
+  "createdAt": "2026-08-20T11:00:00Z"
+  },
+  {
+  "id": "c67",
+  "postId": "p19",
+  "authorId": "u44",
+  "body": "This. Git can tell you that two things conflict, but it can't tell you what the team actually intended.",
+  "upvotes": 9,
+  "downvotes": 0,
+  "createdAt": "2026-08-20T12:15:00Z"
+  },
+  {
+  "id": "c68",
+  "postId": "p19",
+  "authorId": "u6",
+  "body": "We've started putting API changes in the PR description before anyone starts the frontend work. Has helped a lot.",
+  "upvotes": 8,
+  "downvotes": 0,
+  "createdAt": "2026-08-20T14:00:00Z"
+  },
+  {
+  "id": "c69",
+  "postId": "p19",
+  "authorId": "u2",
+  "body": "Documentation doesn't have to be huge either. Sometimes a five-line example response is enough.",
+  "upvotes": 6,
+  "downvotes": 1,
+  "createdAt": "2026-08-20T15:30:00Z"
+  },
+  {
+  "id": "c70",
+  "postId": "p20",
+  "authorId": "u46",
+  "body": "Having migrations in Git completely changed how comfortable I am making schema changes.",
+  "upvotes": 11,
+  "downvotes": 0,
+  "createdAt": "2026-08-20T14:00:00Z"
+  },
+  {
+  "id": "c71",
+  "postId": "p20",
+  "authorId": "u31",
+  "body": "Same. A fresh clone actually produces the same database now instead of relying on tribal knowledge.",
+  "upvotes": 9,
+  "downvotes": 0,
+  "createdAt": "2026-08-20T15:10:00Z"
+  },
+  {
+  "id": "c72",
+  "postId": "p20",
+  "authorId": "u42",
+  "body": "The first migration I ever wrote felt like overkill. Six months later I couldn't imagine going back.",
+  "upvotes": 7,
+  "downvotes": 0,
+  "createdAt": "2026-08-20T16:30:00Z"
+  },
+  {
+  "id": "c73",
+  "postId": "p20",
+  "authorId": "u24",
+  "body": "The important part is committing the migration files. A local migration that exists only on your machine doesn't help anybody.",
+  "upvotes": 8,
+  "downvotes": 0,
+  "createdAt": "2026-08-21T08:00:00Z"
+  },
+  {
+  "id": "c74",
+  "postId": "p21",
+  "authorId": "u9",
+  "body": "The OPTIONS request confused me for way too long. I thought my frontend was somehow making an extra API call.",
+  "upvotes": 13,
+  "downvotes": 0,
+  "createdAt": "2026-08-21T10:00:00Z"
+  },
+  {
+  "id": "c75",
+  "postId": "p21",
+  "authorId": "u1",
+  "body": "The network tab makes CORS issues much easier once you know to look for the preflight.",
+  "upvotes": 10,
+  "downvotes": 0,
+  "createdAt": "2026-08-21T11:00:00Z"
+  },
+  {
+  "id": "c76",
+  "postId": "p21",
+  "authorId": "u3",
+  "body": "One thing that got me was custom headers. Suddenly a request I thought was simple started triggering a preflight.",
+  "upvotes": 8,
+  "downvotes": 0,
+  "createdAt": "2026-08-21T12:15:00Z"
+  },
+  {
+  "id": "c77",
+  "postId": "p21",
+  "authorId": "u18",
+  "body": "Yep. Content-Type and custom headers can make the browser decide it needs to ask permission first.",
+  "upvotes": 7,
+  "downvotes": 0,
+  "createdAt": "2026-08-21T13:30:00Z"
+  },
+  {
+  "id": "c78",
+  "postId": "p21",
+  "authorId": "u42",
+  "body": "I wish the browser error told you more clearly which origin and request header caused the block.",
+  "upvotes": 6,
+  "downvotes": 1,
+  "createdAt": "2026-08-21T15:00:00Z"
+  },
+  {
+  "id": "c79",
+  "postId": "p22",
+  "authorId": "u41",
+  "body": "This is how a harmless boolean becomes technical debt. The original decision wasn't wrong, the requirements just changed.",
+  "upvotes": 10,
+  "downvotes": 0,
+  "createdAt": "2026-08-21T13:00:00Z"
+  },
+  {
+  "id": "c80",
+  "postId": "p22",
+  "authorId": "u31",
+  "body": "I've started asking 'is this really one concept?' whenever a boolean starts accumulating exceptions.",
+  "upvotes": 8,
+  "downvotes": 0,
+  "createdAt": "2026-08-21T14:30:00Z"
+  },
+  {
+  "id": "c81",
+  "postId": "p22",
+  "authorId": "u46",
+  "body": "Separate notification preferences also make the UI much easier to evolve later.",
+  "upvotes": 6,
+  "downvotes": 0,
+  "createdAt": "2026-08-21T16:00:00Z"
+  },
+  {
+  "id": "c82",
+  "postId": "p23",
+  "authorId": "u36",
+  "body": "The giant JPEG hiding halfway down the page is almost always real.",
+  "upvotes": 12,
+  "downvotes": 0,
+  "createdAt": "2026-08-22T09:15:00Z"
+  },
+  {
+  "id": "c83",
+  "postId": "p23",
+  "authorId": "u15",
+  "body": "Image compression has been one of the easiest performance wins I've found on content-heavy pages.",
+  "upvotes": 9,
+  "downvotes": 0,
+  "createdAt": "2026-08-22T10:00:00Z"
+  },
+  {
+  "id": "c84",
+  "postId": "p23",
+  "authorId": "u27",
+  "body": "I also started checking actual image dimensions. Uploading a 4000px image for a 400px card is not doing anybody favors.",
+  "upvotes": 11,
+  "downvotes": 0,
+  "createdAt": "2026-08-22T11:20:00Z"
+  },
+  {
+  "id": "c85",
+  "postId": "p23",
+  "authorId": "u44",
+  "body": "Modern formats help too. WebP cut the size of some of our assets without any visible difference.",
+  "upvotes": 7,
+  "downvotes": 1,
+  "createdAt": "2026-08-22T13:00:00Z"
+  },
+  {
+  "id": "c86",
+  "postId": "p24",
+  "authorId": "u11",
+  "body": "Date and timezone bugs are exactly why I don't trust 'it's just a formatter' as an argument against testing.",
+  "upvotes": 13,
+  "downvotes": 0,
+  "createdAt": "2026-08-22T12:00:00Z"
+  },
+  {
+  "id": "c87",
+  "postId": "p24",
+  "authorId": "u39",
+  "body": "Midnight bugs are especially evil because everything works perfectly until the date happens to cross the boundary.",
+  "upvotes": 9,
+  "downvotes": 0,
+  "createdAt": "2026-08-22T13:15:00Z"
+  },
+  {
+  "id": "c88",
+  "postId": "p24",
+  "authorId": "u18",
+  "body": "I usually keep all timezone conversion in one place now. Makes it much easier to test.",
+  "upvotes": 7,
+  "downvotes": 0,
+  "createdAt": "2026-08-22T14:30:00Z"
+  },
+  {
+  "id": "c89",
+  "postId": "p24",
+  "authorId": "u7",
+  "body": "The worst bugs are the ones where the test data happens to be nowhere near the edge case.",
+  "upvotes": 6,
+  "downvotes": 0,
+  "createdAt": "2026-08-22T16:00:00Z"
+  },
+  {
+  "id": "c90",
+  "postId": "p25",
+  "authorId": "u48",
+  "body": "I needed this reminder. I've definitely built abstractions just because the duplicated code offended me.",
+  "upvotes": 14,
+  "downvotes": 0,
+  "createdAt": "2026-08-23T17:00:00Z"
+  },
+  {
+  "id": "c91",
+  "postId": "p25",
+  "authorId": "u18",
+  "body": "There's a difference between duplication and repetition that actually needs to stay synchronized. I think we sometimes optimize for the wrong one.",
+  "upvotes": 11,
+  "downvotes": 0,
+  "createdAt": "2026-08-23T18:15:00Z"
+  },
+  {
+  "id": "c92",
+  "postId": "p25",
+  "authorId": "u31",
+  "body": "The 'one utility function with 14 options' phase of every project is real.",
+  "upvotes": 12,
+  "downvotes": 0,
+  "createdAt": "2026-08-23T19:30:00Z"
+  },
+  {
+  "id": "c93",
+  "postId": "p25",
+  "authorId": "u27",
+  "body": "I've started asking whether the abstraction makes the calling code easier to understand. If not, it probably isn't helping.",
+  "upvotes": 10,
+  "downvotes": 0,
+  "createdAt": "2026-08-24T08:00:00Z"
+  },
+  {
+  "id": "c94",
+  "postId": "p25",
+  "authorId": "u46",
+  "body": "This is also why I don't mind a little duplication early in a project. You don't know the real shape of the code yet.",
+  "upvotes": 9,
+  "downvotes": 1,
+  "createdAt": "2026-08-24T09:30:00Z"
   }
 ]

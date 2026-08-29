@@ -1,6 +1,6 @@
 import http from 'node:http'
 import { serveStatic } from './utils/serveStatic.js'
-import { handleGetPosts, handleGetComments } from './handlers/routeHandlers.js'
+import { handleGetPost, handleGetPosts, handleGetComments} from './handlers/routeHandlers.js'
 import { handleSignup } from './auth/handleSignup.js'
 import { handleLogin } from './auth/handleLogin.js'
 
@@ -15,14 +15,16 @@ const server = http.createServer(async (req, res) => {
   if (isApiRequest) {
 
     if (req.method === 'GET') {
+      const currUserId = req.headers['x-user-id'] || null;
 
       if (req.url === '/api/posts') {
-        return await handleGetPosts(res)
-      }
-
-      if (urlParts[1] === 'posts' && urlParts[3] === 'comments') {
+        return await handleGetPosts(res, currUserId)
+      } else if (urlParts[1] === 'posts' && urlParts.length === 3) {
         const postId = urlParts[2];
-        return await handleGetComments(res, postId)
+        return await handleGetPost(res, postId, currUserId)
+      } else if (urlParts[1] === 'posts' && urlParts[3] === 'comments') {
+        const postId = urlParts[2];
+        return await handleGetComments(res, postId, currUserId)
       }
 
     } else if (req.method === 'POST') {

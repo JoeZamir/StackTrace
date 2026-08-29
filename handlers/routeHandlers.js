@@ -1,59 +1,65 @@
 import { getData } from '../utils/getData.js'
 import { sendResponse } from '../utils/sendResponse.js'
-// import { parseJSONBody } from '../utils/parseJSONBody.js'
-//import { addNewSighting } from '../utils/addNewSighting.js'
-//import { sanitizeJSON } from '../utils/sanitizeJSON.js'
-//import { createAlert } from '../utils/createAlert.js'
-//import { stories } from "../data/stories.js";
-//import { sightingEvents } from '../events/sightingEvents.js'
+import { enrichPost, enrichPosts, enrichComments } from '../utils/enrichData.js'
 
 
 
-export async function handleGetPosts(res) {
-    const data = await getData('posts.json')
-    const content = JSON.stringify(data)
-    sendResponse(res, 200, 'application/json', content)
-}
-
-export async function handleGetPost(res, id) {
-    const posts = await getData('posts.json')
-    const post = posts.find(p => p.id === id)
-    sendResponse(res, 200, 'application/json', JSON.stringify(post))
-}
-
-export async function handleGetComments(res, postId) {
-    const comments = await getData('comments.json')
-    const postComments = comments.filter(c => c.postId === postId)
-    sendResponse(res, 200, 'application/json', JSON.stringify(postComments))
-}
-
-/*
-export async function handlePost(req, res) {
+export async function handleGetPosts(res, currUserId) {
 
   try {
-    const parsedBody = await parseJSONBody(req)
-    const sanitized = sanitizeJSON(parsedBody)
-    console.log(sanitized)
-    await addNewSighting(sanitized)
-    sightingEvents.emit('sighting-added', createAlert(sanitized))
+    const posts = await getData('posts.json')
+    const comments = await getData('comments.json')
+    const users = await getData('users.json')
+    const votes = await getData('votes.json')
 
-    sendResponse(res, 201, 'application/json', JSON.stringify(sanitized))
-  } catch (err) {
-    sendResponse(res, 400, 'application/json', JSON.stringify({error: err}))
+    const data = enrichPosts(posts, comments, users, votes, currUserId)
+
+    const content = JSON.stringify(data)
+    sendResponse(res, 200, 'application/json', content)
+  } catch (error) {
+    console.error('Error fetching posts:', error)
+    sendResponse(res, 500, 'application/json', JSON.stringify({ error: 'Internal Server Error' }))
   }
-}
-/*
-export async function handleNews(req, res) {
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'text/event-stream')
-  res.setHeader('Cache-Control', 'no-cache')
-  res.setHeader('Connection', 'keep-alive')
 
-  setInterval(() => {
-    let randomIndex = Math.floor(Math.random() * stories.length)
-    console.log(stories[randomIndex])
-
-    res.write(`data: ${JSON.stringify({event: 'news-update', story: stories[randomIndex]})}\n\n`)
-  }, 3000)
 }
-*/
+
+export async function handleGetPost(res, id, currUserId) {
+
+  try {
+    const posts = await getData('posts.json')
+    const post = posts.find(p => p.id === id)
+    const comments = await getData('comments.json')
+    const users = await getData('users.json')
+    const votes = await getData('votes.json')
+
+    if (!post) {
+      sendResponse(res, 404, 'application/json', JSON.stringify({ error: 'Post not found' }))
+      return
+    }
+
+    const enrichedPost = enrichPost(post, comments, users, votes, currUserId)
+
+    sendResponse(res, 200, 'application/json', JSON.stringify(enrichedPost))
+  } catch (error) {
+    console.error('Error fetching post:', error)
+    sendResponse(res, 500, 'application/json', JSON.stringify({ error: 'Internal Server Error' }))
+  }
+
+}
+
+export async function handleGetComments(res, postId, currUserId) {
+
+  try {
+    const comments = await getData('comments.json')
+    const postComments = comments.filter(c => c.postId === postId)
+    const users = await getData('users.json')
+    const votes = await getData('votes.json')
+
+    const enrichedComments = enrichComments(postComments, users, votes, currUserId)
+    sendResponse(res, 200, 'application/json', JSON.stringify(enrichedComments))
+  } catch (error) {
+    console.error('Error fetching comments:', error)
+    sendResponse(res, 500, 'application/json', JSON.stringify({ error: 'Internal Server Error' }))
+  }
+
+}

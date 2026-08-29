@@ -3,7 +3,7 @@
     "id": "p1",
     "authorId": "u1",
     "title": "Why I finally moved off REST for internal tools",
-    "body": "Spent a weekend rewriting our internal admin API in tRPC. The old REST version had drifted for two years \u2014 routes that didn't match the client's expectations anymore, a Postman collection nobody trusted, and a types package we had to remember to rebuild by hand.\n\nThe biggest win was immediate: end-to-end types. No more guessing whether GET /admin/users/:id returns lastLoginAt as a string or a number.\n\nWhat got worse: caching. REST gave us free HTTP caching semantics we didn't realize we were leaning on. We had to rebuild some of that manually on the client.\n\nThe migration trap: our auth middleware assumed a REST-style request object, and tRPC's context setup runs before that middleware in a way I didn't expect \u2014 cost me an entire afternoon to untangle.",
+    "body": "Spent a weekend rewriting our internal admin API in tRPC. The old REST version had drifted for two years - routes that didn't match the client's expectations anymore, a Postman collection nobody trusted, and a types package we had to remember to rebuild by hand.\n\nThe biggest win was immediate: end-to-end types. No more guessing whether GET /admin/users/:id returns lastLoginAt as a string or a number.\n\nWhat got worse: caching. REST gave us free HTTP caching semantics we didn't realize we were leaning on. We had to rebuild some of that manually on the client.\n\nThe migration trap: our auth middleware assumed a REST-style request object, and tRPC's context setup runs before that middleware in a way I didn't expect - cost me an entire afternoon to untangle.",
     "tags": [
       "api-design",
       "typescript"
@@ -16,7 +16,7 @@
     "id": "p2",
     "authorId": "u2",
     "title": "Async/await gotchas that still trip me up in Node",
-    "body": "Every few weeks I still forget that `forEach` does not await async work and that a rejected promise without a catch can vanish inside a fire-and-forget loop.\n\nMy current checklist is small but reliable: promise boundaries, unhandled rejection listeners, re-entrancy, and aborting long-running tasks when the request goes away.\n\n```js\nawait Promise.all(tasks.map(task => runTask(task)));\n// treat each task as a boundary, not as a side effect\n```\n\nThe bug pattern I keep revisiting is not about the async syntax itself \u2014 it's the assumptions around when the work is actually complete.",
+    "body": "Every few weeks I still forget that `forEach` does not await async work and that a rejected promise without a catch can vanish inside a fire-and-forget loop.\n\nMy current checklist is small but reliable: promise boundaries, unhandled rejection listeners, re-entrancy, and aborting long-running tasks when the request goes away.\n\n```js\nawait Promise.all(tasks.map(task => runTask(task)));\n// treat each task as a boundary, not as a side effect\n```\n\nThe bug pattern I keep revisiting is not about the async syntax itself - it's the assumptions around when the work is actually complete.",
     "tags": [
       "node.js",
       "async"
@@ -51,5 +51,299 @@
     "upvotes": 10,
     "downvotes": 1,
     "createdAt": "2026-08-15T08:00:00Z"
+  },
+  {
+    "id": "p5",
+    "authorId": "u27",
+    "title": "Tailwind is great until your class names become a paragraph",
+    "body": "I like Tailwind. I really do. But I hit a point yesterday where I had to horizontally scroll through a component just to understand its styling.\n\nThe component had a grid, responsive padding, dark mode, hover state, disabled state and two slightly different breakpoints. The markup looked like a ransom note.\n\nI ended up extracting the repeated pieces into a small component instead of reaching for `@apply` everywhere. Much easier to read now.\n\nI don't think long Tailwind class lists automatically mean bad code. But when the HTML becomes harder to understand than the CSS it replaced, that's probably a sign to split something up.",
+    "tags": [
+      "tailwind",
+      "css",
+      "frontend"
+    ],
+    "upvotes": 38,
+    "downvotes": 5,
+    "createdAt": "2026-08-15T11:20:00Z"
+  },
+  {
+    "id": "p6",
+    "authorId": "u13",
+    "title": "The React useEffect cleanup I forgot about",
+    "body": "Had a component that subscribed to a websocket every time the user changed tabs. Looked fine in development because I wasn't sitting there for long.\n\nThen I noticed the same event was firing four times after switching tabs a few times.\n\nTurns out I was creating the subscription inside an effect and never cleaning it up.\n\n```js\nuseEffect(() => {\n  const socket = connectToRoom(roomId);\n  socket.on(\"message\", handleMessage);\n  return () => socket.close();\n}, [roomId]);\n```\n\n The annoying part is that React wasn't doing anything weird. I just forgot that effects can represent a resource with a lifetime, not just a place to run some code.",
+    "tags": [
+      "react",
+      "javascript",
+      "debugging"
+    ],
+    "upvotes": 42,
+    "downvotes": 2,
+    "createdAt": "2026-08-16T10:35:00Z"
+  },
+  {
+    "id": "p7",
+    "authorId": "u31",
+    "title": "PostgreSQL indexes: I finally stopped adding them blindly",
+    "body": "I used to treat indexes like free performance upgrades. Query is slow? Add an index. Problem solved, right?\n\nNot quite.\n\nI had a table where we kept adding indexes because different queries were slow. Eventually writes got noticeably more expensive and some of the indexes weren't being used at all.\n\nRunning `EXPLAIN ANALYZE` before changing anything made a huge difference. Sometimes the problem was the query, sometimes the data distribution, and sometimes the index I thought would help simply wasn't useful for that particular query.\n\nIndexes are great. They're also not free. I wish I had learned that before creating eight of them on one table.",
+    "tags": [
+      "postgresql",
+      "database",
+      "performance"
+    ],
+    "upvotes": 43,
+    "downvotes": 3,
+    "createdAt": "2026-08-16T13:10:00Z"
+  },
+  {
+    "id": "p8",
+    "authorId": "u18",
+    "title": "TypeScript made this bug impossible to ship",
+    "body": "Had an API response where `status` used to be a string but was changed to an object on the backend.\n\nThe frontend had several places doing stuff like `if (status === \"active\")`, so without types we'd probably have shipped a UI that silently stopped showing active accounts.\n\nBecause the response type was shared, TypeScript started complaining in six different places immediately.\n\nI know people joke about TypeScript being annoying when you're moving quickly, but this is exactly the kind of annoying I want. It complained before the bug became somebody else's ticket.",
+    "tags": [
+      "typescript",
+      "frontend",
+      "api-design"
+    ],
+    "upvotes": 44,
+    "downvotes": 2,
+    "createdAt": "2026-08-17T09:25:00Z"
+  },
+  {
+    "id": "p9",
+    "authorId": "u42",
+    "title": "SQLite is underrated for small Node projects",
+    "body": "Started a side project with PostgreSQL because that's what I normally use. Then I realized I was the only person running it, the database had about twelve tables, and the entire thing lived on my laptop.\n\nSwitched to SQLite and suddenly I didn't need a database container, environment variables for local credentials, or a setup script just to run the project.\n\nObviously I'm not suggesting SQLite for every production workload. But for prototypes, local tools and small apps, having a database that is literally one file is ridiculously convenient.\n\nSometimes the boring option is the good option.",
+    "tags": [
+      "sqlite",
+      "node.js",
+      "database"
+    ],
+    "upvotes": 35,
+    "downvotes": 4,
+    "createdAt": "2026-08-17T12:40:00Z"
+  },
+  {
+    "id": "p10",
+    "authorId": "u7",
+    "title": "I stopped using console.log as my entire debugging strategy",
+    "body": "Not completely. I still use it when I'm being lazy.\n\nBut once an app has enough moving parts, random console logs become surprisingly hard to follow. Especially when several requests are happening at the same time.\n\nAdding request IDs to logs changed things for me. Now I can search for one request and actually follow it from the controller to the database call.\n\n```txt\nrequest=8f31 route=/orders/42\nrequest=8f31 db.query started\nrequest=8f31 db.query finished\nrequest=8f31 response=200\n```\n\nIt took maybe an hour to set up and has saved me much more than an hour of staring at terminal output.",
+    "tags": [
+      "debugging",
+      "node.js",
+      "observability"
+    ],
+    "upvotes": 39,
+    "downvotes": 1,
+    "createdAt": "2026-08-17T15:15:00Z"
+  },
+  {
+    "id": "p11",
+    "authorId": "u35",
+    "title": "CSS container queries finally clicked for me",
+    "body": "I kept thinking of responsive design as something controlled by the viewport. Then I tried container queries properly and it finally made sense.\n\nA card doesn't really care whether the screen is 1440px wide. It cares how much space its parent gives it.\n\nThat sounds obvious now, but it changed how I think about reusable components. A component can decide how it looks based on its actual container instead of making assumptions about the whole page.\n\nStill not using them everywhere, but for reusable cards and dashboard widgets they make a lot of sense.",
+    "tags": [
+      "css",
+      "frontend",
+      "responsive-design"
+    ],
+    "upvotes": 45,
+    "downvotes": 2,
+    "createdAt": "2026-08-18T07:30:00Z"
+  },
+  {
+    "id": "p12",
+    "authorId": "u24",
+    "title": "What actually belongs in a Docker image?",
+    "body": "I spent too long building Docker images that contained basically the entire project, including files nobody needed at runtime.\n\nA proper `.dockerignore` helped more than I expected. Then I switched to a multi-stage build so the final image only contained the production dependencies and compiled app.\n\nThe final image went from over 900MB to just under 200MB.\n\nThe funny thing is that the application itself barely changed. Most of the reduction came from simply being more deliberate about what was being copied into the image.",
+    "tags": [
+      "docker",
+      "devops",
+      "performance"
+    ],
+    "upvotes": 41,
+    "downvotes": 3,
+    "createdAt": "2026-08-18T10:45:00Z"
+  },
+  {
+    "id": "p13",
+    "authorId": "u44",
+    "title": "Don't make your frontend wait for everything",
+    "body": "I had a dashboard that showed a loading spinner until every API request finished. Five requests were happening in parallel, but the UI behaved like it was waiting for one giant request.\n\nChanged it so each section renders as its own data arrives. The page feels dramatically faster even though the backend response times are exactly the same.\n\nIt's a small UX thing, but users don't experience your API timings directly. They experience how long they have to stare at a blank screen.\n\nSometimes perceived performance is just about not blocking useful UI on unrelated data.",
+    "tags": [
+      "frontend",
+      "ux",
+      "performance"
+    ],
+    "upvotes": 47,
+    "downvotes": 2,
+    "createdAt": "2026-08-18T13:00:00Z"
+  },
+  {
+    "id": "p14",
+    "authorId": "u6",
+    "title": "My Express error handler was hiding the actual error",
+    "body": "We had an Express error handler that was doing this:\n\n```js\nres.status(500).json({ error: \"Something went wrong\" });\n```\n\nVery friendly for users. Completely useless for debugging.\n\nThe server logs weren't capturing the original error consistently either, so we ended up with a production issue where all we knew was that something had gone wrong. Incredible detective work.\n\nI changed the middleware to log the original error with the request context, while keeping the response generic for clients.\n\nThe lesson isn't 'send stack traces to users'. Please don't. It's 'don't throw away useful information before you log it.'",
+    "tags": [
+      "express",
+      "node.js",
+      "error-handling"
+    ],
+    "upvotes": 45,
+    "downvotes": 1,
+    "createdAt": "2026-08-18T16:20:00Z"
+  },
+  {
+    "id": "p15",
+    "authorId": "u29",
+    "title": "A tiny accessibility fix that took five minutes",
+    "body": "Found a button in our app that was actually a `div` with a click handler.\n\nIt looked exactly like a button. Mouse users could click it. So nobody noticed.\n\nKeyboard users couldn't focus it, screen readers didn't announce it properly, and pressing Enter didn't behave like a button.\n\nReplaced it with an actual `<button>` and most of the accessibility problem disappeared immediately.\n\nThis is one of those cases where the accessible solution is also the simpler solution. No ARIA gymnastics required.",
+    "tags": [
+      "accessibility",
+      "html",
+      "frontend"
+    ],
+    "upvotes": 48,
+    "downvotes": 1,
+    "createdAt": "2026-08-19T08:10:00Z"
+  },
+  {
+    "id": "p16",
+    "authorId": "u20",
+    "title": "Why I started validating environment variables at startup",
+    "body": "Nothing ruins your morning like discovering that production has been running with a missing environment variable for three hours.\n\nOur app used to discover configuration problems only when the relevant code path was hit. So the server could boot successfully and then randomly fail later.\n\nNow we validate required config when the process starts. If something is missing, the app refuses to boot and tells us exactly what.\n\nI'd rather have a container crash immediately than have a healthy-looking service quietly waiting to explode.",
+    "tags": [
+      "node.js",
+      "configuration",
+      "devops"
+    ],
+    "upvotes": 40,
+    "downvotes": 2,
+    "createdAt": "2026-08-19T11:50:00Z"
+  },
+  {
+    "id": "p17",
+    "authorId": "u39",
+    "title": "The SQL query was fine. The N+1 requests weren't.",
+    "body": "Spent an embarrassing amount of time optimizing a database query that wasn't actually the problem.\n\nThe page loaded 50 projects and then made another API request for each project's owner.\n\nThe database query itself was fast. We were just doing it 51 times.\n\nChanged the endpoint to return the owner information with the projects and the load time dropped from around 2 seconds to a few hundred milliseconds.\n\nN+1 is one of those problems that's so simple in hindsight. Unfortunately hindsight doesn't show up until after you've spent an afternoon staring at the wrong query.",
+    "tags": [
+      "api-design",
+      "performance",
+      "database"
+    ],
+    "upvotes": 46,
+    "downvotes": 3,
+    "createdAt": "2026-08-19T14:30:00Z"
+  },
+  {
+    "id": "p18",
+    "authorId": "u15",
+    "title": "Vite dev server spoiled me",
+    "body": "Went back to an older frontend project today and remembered what development used to feel like before Vite.\n\nStarted the app, changed one CSS rule, waited, stared at the screen, questioned my life choices.\n\nModern tooling has made the feedback loop so fast that going back to a slower setup feels painful now.\n\nObviously build tooling isn't the most important part of a project, but the development feedback loop matters more than I used to think. If it takes 20 seconds to see whether a tiny change worked, you're going to experiment less.",
+    "tags": [
+      "vite",
+      "frontend",
+      "developer-experience"
+    ],
+    "upvotes": 39,
+    "downvotes": 5,
+    "createdAt": "2026-08-20T07:45:00Z"
+  },
+  {
+    "id": "p19",
+    "authorId": "u32",
+    "title": "Git branches aren't a substitute for communication",
+    "body": "We had three people working on related parts of the same feature. Everyone had their own branch, everything was committed, and somehow we still managed to surprise each other with changes.\n\nThe problem wasn't Git. Nobody had clearly said what they were changing.\n\nOne person changed the API response while another was building the frontend against the old shape. Both were technically working correctly.\n\nA five-minute conversation before starting would have saved us an hour of merge conflict archaeology.",
+    "tags": [
+      "git",
+      "teamwork",
+      "developer-experience"
+    ],
+    "upvotes": 44,
+    "downvotes": 2,
+    "createdAt": "2026-08-20T10:20:00Z"
+  },
+  {
+    "id": "p20",
+    "authorId": "u46",
+    "title": "Prisma migrations saved me from my own database habits",
+    "body": "I used to make small database changes manually during development and then try to remember what I had changed later.\n\nThat worked until another developer pulled the project and got a completely different schema.\n\nStarted using Prisma migrations properly and the workflow is much less chaotic. The schema changes are committed, the migration history is part of the project, and setting up a fresh database is predictable.\n\nThe database stopped being this mysterious thing that existed somewhere on my laptop.",
+    "tags": [
+      "prisma",
+      "database",
+      "developer-experience"
+    ],
+    "upvotes": 43,
+    "downvotes": 2,
+    "createdAt": "2026-08-20T13:15:00Z"
+  },
+  {
+    "id": "p21",
+    "authorId": "u9",
+    "title": "I finally learned what CORS is actually doing",
+    "body": "For the longest time my mental model of CORS was basically 'the browser randomly hates my API'.\n\nTurns out the browser is checking whether a different origin is allowed to make a request, and some requests trigger a preflight before the real request is sent.\n\nOnce I understood that, the network tab suddenly made much more sense. Seeing an OPTIONS request before my POST stopped looking like some mysterious extra request.\n\nStill think the error messages could be friendlier, though. 'Blocked by CORS policy' is technically useful and emotionally useless.",
+    "tags": [
+      "cors",
+      "web",
+      "api-design"
+    ],
+    "upvotes": 47,
+    "downvotes": 3,
+    "createdAt": "2026-08-21T09:00:00Z"
+  },
+  {
+    "id": "p22",
+    "authorId": "u41",
+    "title": "When a simple boolean isn't actually simple",
+    "body": "Had a settings field called `notificationsEnabled` that looked harmless enough.\n\nThen product added email notifications, push notifications and weekly summaries.\n\nSuddenly one boolean wasn't enough because 'notifications' wasn't one thing anymore.\n\nWe changed the model to represent each preference separately. More fields, but much less ambiguity.\n\nA lot of technical debt starts with perfectly reasonable assumptions that stop being true six months later. The trick is noticing when the model has outgrown the assumption.",
+    "tags": [
+      "database",
+      "software-design",
+      "architecture"
+    ],
+    "upvotes": 42,
+    "downvotes": 2,
+    "createdAt": "2026-08-21T12:25:00Z"
+  },
+  {
+    "id": "p23",
+    "authorId": "u36",
+    "title": "Lazy loading images made a bigger difference than expected",
+    "body": "Our landing page had a bunch of images below the fold that were all loading immediately.\n\nNothing looked obviously broken, but the initial page load was heavier than it needed to be.\n\nAdded lazy loading to images that weren't visible initially and compressed a few of the larger assets. The page felt noticeably quicker on mobile connections.\n\nIt's easy to obsess over JavaScript bundle size while ignoring the giant 2MB JPEG sitting halfway down the page.",
+    "tags": [
+      "performance",
+      "frontend",
+      "web"
+    ],
+    "upvotes": 41,
+    "downvotes": 1,
+    "createdAt": "2026-08-22T08:35:00Z"
+  },
+  {
+    "id": "p24",
+    "authorId": "u11",
+    "title": "Testing the boring stuff caught the interesting bug",
+    "body": "I wrote what I thought was a pointless test for a date formatter because the function was only about ten lines long.\n\nThen the test failed because dates near midnight were being formatted using the server's timezone instead of the user's timezone.\n\nThat bug would have been really annoying to reproduce manually.\n\nThis is why I keep changing my mind about 'obvious' code. If something depends on dates, timezones, rounding or user input, it probably deserves a test even when the implementation looks trivial.",
+    "tags": [
+      "testing",
+      "javascript",
+      "debugging"
+    ],
+    "upvotes": 45,
+    "downvotes": 2,
+    "createdAt": "2026-08-22T11:10:00Z"
+  },
+  {
+    "id": "p25",
+    "authorId": "u48",
+    "title": "The best refactor I made this week removed code",
+    "body": "I had a utility function that was being used in three places. I thought it was a perfect candidate for making it more generic.\n\nSo I added options. Then more options. Then a callback. Eventually I realized the three places didn't actually have enough in common to justify the abstraction.\n\nDeleted the utility and put the small pieces back where they belonged.\n\nThe codebase got shorter and easier to understand.\n\nI think I sometimes confuse 'less duplicated code' with 'better code'. Duplication can be cheaper than a complicated abstraction.",
+    "tags": [
+      "refactoring",
+      "software-design",
+      "javascript"
+    ],
+    "upvotes": 48,
+    "downvotes": 2,
+    "createdAt": "2026-08-23T15:40:00Z"
   }
 ]

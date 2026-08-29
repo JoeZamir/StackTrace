@@ -2,64 +2,61 @@ import { initAutoGrow } from "./utils/textarea.js";
 import { initCharCounter } from "./utils/char-counter.js";
 import { initMobileNav } from "./utils/nav.js";
 import { getAuthUser, isAuthenticated, refreshAuthStatus, showAuthWarning, hideAuthWarning} from "./utils/auth-gate.js";
-import { getPosts } from "./utils/fetchPosts.js";
+import { getPosts, getPost } from "./utils/fetchPosts.js";
 import { getComments } from "./utils/comments.js";
-import { enrichPost } from "./site-data.js";
 
-let posts = [];
+//refactor
+/*
+1. Fetch posts and comments from the server using the provided utility functions.
+2. remove imports from site-data.js and use the fetch api to get the data instead of using the static site-data.js file.
+3. Initialize event listeners for voting on posts and comments, as well as for comment forms and reply toggles.
+*/
+
+let post = [];
 let comments = [];
-let postData = {};
-let enrichedPostData = {};
 
-function buildPostData() {
-    postData = posts.reduce((map, post) => {
-      map[post.id] = post;
-      map[post.numericId] = post;
-      return map;
-    }, {});
-}
 
-function getSelectedPost() {
+function getSelectedId() {
   const id = new URLSearchParams(window.location.search).get("id") || "p1";
-  return postData[id] || posts[0];
+  return id;
 }
 
 function renderPostPage() {
   const article = document.querySelector(".post");
   if (!article) return;
 
-  article.dataset.postId = String(enrichedPostData.id);
-  article.dataset.authorName = enrichedPostData.author;
+  article.dataset.postId = String(post.id);
+  article.dataset.authorName = post.author;
 
   const title = document.querySelector(".post__title", article);
-  if (title) title.textContent = enrichedPostData.title;
+  if (title) title.textContent = post.title;
 
   const meta = document.querySelector(".post__meta", article);
   if (meta) {
     meta.innerHTML = `
       <div class="byline">
-        <span class="byline__avatar">${enrichedPostData.avatar}</span>
-        <span class="byline__name">${enrichedPostData.author}</span>
+        <span class="byline__avatar">${post.avatar}</span>
+        <span class="byline__name">${post.author}</span>
         <span class="byline__dot"></span>
-        <span>${enrichedPostData.time}</span>
+        <span>${post.time}</span>
       </div>
       <ul class="tag-list">
-        ${enrichedPostData.tags.map((tag) => `<li class="tag-pill">${tag}</li>`).join("")}
+        ${post.tags.map((tag) => `<li class="tag-pill">${tag}</li>`).join("")}
       </ul>
     `;
   }
 
   const body = document.querySelector(".post__body", article);
-  if (body) body.innerHTML = enrichedPostData.bodyHtml;
+  if (body) body.innerHTML = post.bodyHtml;
 
   const commentsSection = document.querySelector(".comments", document.body);
   if (commentsSection) {
     const count = document.querySelector(".comments__count", commentsSection);
-    if (count) count.textContent = `${enrichedPostData.commentList.length} comments`;
+    if (count) count.textContent = `${post.commentList.length} comments`;
 
     const list = document.querySelector(".comment-list", commentsSection);
     if (list) {
-      list.innerHTML = enrichedPostData.commentList
+      list.innerHTML = post.commentList
         .map(
           (comment) => `
             <li class="comment" data-comment-author="${comment.author}">
@@ -97,7 +94,7 @@ function renderPostPage() {
     }
   }
 
-  document.title = `${enrichedPostData.title} — stackTrace`;
+  document.title = `${post.title} — stackTrace`;
 }
 
 
@@ -153,8 +150,8 @@ function initPostVoteRows(post) {
       if (!button) return;
       event.preventDefault();
       const source = row.dataset.commentId
-        ? enrichedPostData.commentList.find((comment) => comment.id === row.dataset.commentId)
-        : enrichedPostData;
+        ? post.commentList.find((comment) => comment.id === row.dataset.commentId)
+        : post;
       if (source) updateVoteState(source, button.dataset.voteButton, row);
     });
   });
@@ -286,25 +283,16 @@ function initDeleteConfirm() {
     if (!confirmed) event.preventDefault();
   });
 }
-async function initPostCommentSection() {
-    comments = await getComments(getSelectedPost().id);
-}
 
-function getEnrichedPost(post, comments) {
-    let users = [];
-    const enriched = enrichPost(post, comments, users);
-    return enriched;
-}
+
 async function initPostPage() {
 
-    posts = await getPosts();
-    buildPostData();
-    await initPostCommentSection();
-    enrichedPostData = getEnrichedPost(getSelectedPost(), comments);
+    post = await getPost(getSelectedId());
+
     renderPostPage();
     refreshAuthStatus();
     applyPostAuthorState();
-    initPostVoteRows(getSelectedPost());
+    initPostVoteRows(post);
     initAutoGrow("[data-autogrow]");
     initCharCounter("[data-comment-input]", "[data-comment-counter]", 500);
   document.querySelectorAll("[data-reply-input]").forEach((input) => {

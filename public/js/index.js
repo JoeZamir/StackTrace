@@ -1,5 +1,6 @@
 import { initMobileNav } from "./utils/nav.js";
 import { getPosts } from "./utils/fetchPosts.js";
+import { refreshAuthStatus} from "./utils/auth-gate.js";
 
 const TOPIC_POOL = [
   "api-design",
@@ -88,10 +89,10 @@ function syncVoteRow(postId) {
   const row = document.querySelector(`[data-vote-row][data-post-id="${post.id}"]`);
   if (!row) return;
 
-  const upButton = document.querySelector('[data-vote-button="up"]', row);
-  const downButton = document.querySelector('[data-vote-button="down"]', row);
-  const upCount = document.querySelector(".post-card__vote-count", upButton ?? row);
-  const downCount = document.querySelector(".post-card__vote-count", downButton ?? row);
+  const upButton = row.querySelector('[data-vote-button="up"]');
+  const downButton = row.querySelector('[data-vote-button="down"]');
+  const upCount = (upButton ?? row).querySelector(".post-card__vote-count");
+  const downCount = (downButton ?? row).querySelector(".post-card__vote-count");
 
   if (upButton) {
     const isActive = post.userVote === "up";
@@ -266,6 +267,7 @@ async function init() {
     renderFeedPosts();
     initTopicFilters();
     initSortToolbar();
+    refreshAuthStatus();
     initMobileNav();
   }
 

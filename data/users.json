@@ -26,7 +26,7 @@
 		"fullName": "Kesh Patel",
 		"email": "kesh@example.com",
 		"password": "stacktrace123",
-		"avatar": "KD",
+		"avatar": "KP",
 		"createdAt": "2026-06-01T12:30:00Z"
 	},
 	{
@@ -35,8 +35,468 @@
 		"fullName": "Joe Zamir",
 		"displayName": "Joe",
 		"email": "jmiringu384@gmail.com",
-		"password": "stacktrace123",
+		"password": "Asdfghjkl.",
 		"avatar": "JZ",
 		"createdAt": "2026-08-25T13:34:16.988Z"
+	},
+	{
+		"id": "u5",
+		"username": "maya_builds",
+		"displayName": "Maya",
+		"fullName": "Maya Okafor",
+		"email": "maya@example.com",
+		"password": "stacktrace123",
+		"avatar": "MO",
+		"createdAt": "2026-05-14T09:20:00Z"
+	},
+	{
+		"id": "u6",
+		"username": "danieldev",
+		"displayName": "Daniel",
+		"fullName": "Daniel Mwangi",
+		"email": "daniel@example.com",
+		"password": "stacktrace123",
+		"avatar": "DM",
+		"createdAt": "2026-05-18T14:45:00Z"
+	},
+	{
+		"id": "u7",
+		"username": "soph_codes",
+		"displayName": "Soph",
+		"fullName": "Sophia Williams",
+		"email": "sophia@example.com",
+		"password": "stacktrace123",
+		"avatar": "SW",
+		"createdAt": "2026-05-21T11:10:00Z"
+	},
+	{
+		"id": "u8",
+		"username": "bytebybrian",
+		"displayName": "Brian",
+		"fullName": "Brian Otieno",
+		"email": "brian@example.com",
+		"password": "stacktrace123",
+		"avatar": "BO",
+		"createdAt": "2026-05-25T16:30:00Z"
+	},
+	{
+		"id": "u9",
+		"username": "lena_ui",
+		"displayName": "Lena",
+		"fullName": "Lena Fischer",
+		"email": "lena@example.com",
+		"password": "stacktrace123",
+		"avatar": "LF",
+		"createdAt": "2026-05-28T07:50:00Z"
+	},
+	{
+		"id": "u10",
+		"username": "mikeonstack",
+		"displayName": "Mike",
+		"fullName": "Michael Carter",
+		"email": "michael@example.com",
+		"password": "stacktrace123",
+		"avatar": "MC",
+		"createdAt": "2026-06-03T13:15:00Z"
+	},
+	{
+		"id": "u11",
+		"username": "nadiacodes",
+		"displayName": "Nadia",
+		"fullName": "Nadia Hassan",
+		"email": "nadia@example.com",
+		"password": "stacktrace123",
+		"avatar": "NH",
+		"createdAt": "2026-06-05T10:40:00Z"
+	},
+	{
+		"id": "u12",
+		"username": "alexfrontend",
+		"displayName": "Alex",
+		"fullName": "Alex Morgan",
+		"email": "alex@example.com",
+		"password": "stacktrace123",
+		"avatar": "AM",
+		"createdAt": "2026-06-08T15:25:00Z"
+	},
+	{
+		"id": "u13",
+		"username": "grace_dev",
+		"displayName": "Grace",
+		"fullName": "Grace Wanjiku",
+		"email": "grace@example.com",
+		"password": "stacktrace123",
+		"avatar": "GW",
+		"createdAt": "2026-06-11T08:35:00Z"
+	},
+	{
+		"id": "u14",
+		"username": "theo_codes",
+		"displayName": "Theo",
+		"fullName": "Theo Martins",
+		"email": "theo@example.com",
+		"password": "stacktrace123",
+		"avatar": "TM",
+		"createdAt": "2026-06-14T17:05:00Z"
+	},
+	{
+		"id": "u15",
+		"username": "rubybuilds",
+		"displayName": "Ruby",
+		"fullName": "Ruby Thompson",
+		"email": "ruby@example.com",
+		"password": "stacktrace123",
+		"avatar": "RT",
+		"createdAt": "2026-06-17T09:55:00Z"
+	},
+	{
+		"id": "u16",
+		"username": "sam_backend",
+		"displayName": "Sam",
+		"fullName": "Samuel Kimani",
+		"email": "samuel@example.com",
+		"password": "stacktrace123",
+		"avatar": "SK",
+		"createdAt": "2026-06-20T12:20:00Z"
+	},
+	{
+		"id": "u17",
+		"username": "devbyzara",
+		"displayName": "Zara",
+		"fullName": "Zara Ahmed",
+		"email": "zara@example.com",
+		"password": "stacktrace123",
+		"avatar": "ZA",
+		"createdAt": "2026-06-23T14:10:00Z"
+	},
+	{
+		"id": "u18",
+		"username": "chris_js",
+		"displayName": "Chris",
+		"fullName": "Chris Anderson",
+		"email": "chris@example.com",
+		"password": "stacktrace123",
+		"avatar": "CA",
+		"createdAt": "2026-06-26T11:45:00Z"
+	},
+	{
+		"id": "u19",
+		"username": "imani_tech",
+		"displayName": "Imani",
+		"fullName": "Imani Johnson",
+		"email": "imani@example.com",
+		"password": "stacktrace123",
+		"avatar": "IJ",
+		"createdAt": "2026-06-29T16:00:00Z"
+	},
+	{
+		"id": "u20",
+		"username": "kev_codes",
+		"displayName": "Kev",
+		"fullName": "Kevin Njoroge",
+		"email": "kevin@example.com",
+		"password": "stacktrace123",
+		"avatar": "KN",
+		"createdAt": "2026-07-02T08:25:00Z"
+	},
+	{
+		"id": "u21",
+		"username": "ella_dev",
+		"displayName": "Ella",
+		"fullName": "Ella Brown",
+		"email": "ella@example.com",
+		"password": "stacktrace123",
+		"avatar": "EB",
+		"createdAt": "2026-07-05T10:15:00Z"
+	},
+	{
+		"id": "u22",
+		"username": "moh_dev",
+		"displayName": "Moh",
+		"fullName": "Mohamed Ali",
+		"email": "mohamed@example.com",
+		"password": "stacktrace123",
+		"avatar": "MA",
+		"createdAt": "2026-07-08T13:40:00Z"
+	},
+	{
+		"id": "u23",
+		"username": "livcodes",
+		"displayName": "Liv",
+		"fullName": "Olivia Parker",
+		"email": "olivia@example.com",
+		"password": "stacktrace123",
+		"avatar": "OP",
+		"createdAt": "2026-07-11T09:05:00Z"
+	},
+	{
+		"id": "u24",
+		"username": "aaron_stack",
+		"displayName": "Aaron",
+		"fullName": "Aaron Davis",
+		"email": "aaron@example.com",
+		"password": "stacktrace123",
+		"avatar": "AD",
+		"createdAt": "2026-07-14T15:30:00Z"
+	},
+	{
+		"id": "u25",
+		"username": "njeri_codes",
+		"displayName": "Njeri",
+		"fullName": "Njeri Kamau",
+		"email": "njeri@example.com",
+		"password": "stacktrace123",
+		"avatar": "NK",
+		"createdAt": "2026-07-17T11:55:00Z"
+	},
+	{
+		"id": "u26",
+		"username": "devwithleo",
+		"displayName": "Leo",
+		"fullName": "Leonard Smith",
+		"email": "leo@example.com",
+		"password": "stacktrace123",
+		"avatar": "LS",
+		"createdAt": "2026-07-20T07:40:00Z"
+	},
+	{
+		"id": "u27",
+		"username": "fatima_dev",
+		"displayName": "Fatima",
+		"fullName": "Fatima Yusuf",
+		"email": "fatima@example.com",
+		"password": "stacktrace123",
+		"avatar": "FY",
+		"createdAt": "2026-07-22T14:25:00Z"
+	},
+	{
+		"id": "u28",
+		"username": "julescodes",
+		"displayName": "Jules",
+		"fullName": "Julian Reed",
+		"email": "jules@example.com",
+		"password": "stacktrace123",
+		"avatar": "JR",
+		"createdAt": "2026-07-24T12:10:00Z"
+	},
+	{
+		"id": "u29",
+		"username": "aisha_builds",
+		"displayName": "Aisha",
+		"fullName": "Aisha Noor",
+		"email": "aisha@example.com",
+		"password": "stacktrace123",
+		"avatar": "AN",
+		"createdAt": "2026-07-26T16:45:00Z"
+	},
+	{
+		"id": "u30",
+		"username": "benjs",
+		"displayName": "Ben",
+		"fullName": "Benjamin Cooper",
+		"email": "benjamin@example.com",
+		"password": "stacktrace123",
+		"avatar": "BC",
+		"createdAt": "2026-07-28T09:30:00Z"
+	},
+	{
+		"id": "u31",
+		"username": "wambui_dev",
+		"displayName": "Wambui",
+		"fullName": "Wambui Kariuki",
+		"email": "wambui@example.com",
+		"password": "stacktrace123",
+		"avatar": "WK",
+		"createdAt": "2026-07-30T13:20:00Z"
+	},
+	{
+		"id": "u32",
+		"username": "noah_codes",
+		"displayName": "Noah",
+		"fullName": "Noah Wilson",
+		"email": "noah@example.com",
+		"password": "stacktrace123",
+		"avatar": "NW",
+		"createdAt": "2026-08-01T10:05:00Z"
+	},
+	{
+		"id": "u33",
+		"username": "joyfrontend",
+		"displayName": "Joy",
+		"fullName": "Joy Atieno",
+		"email": "joy@example.com",
+		"password": "stacktrace123",
+		"avatar": "JA",
+		"createdAt": "2026-08-03T15:50:00Z"
+	},
+	{
+		"id": "u34",
+		"username": "ethan_dev",
+		"displayName": "Ethan",
+		"fullName": "Ethan Mitchell",
+		"email": "ethan@example.com",
+		"password": "stacktrace123",
+		"avatar": "EM",
+		"createdAt": "2026-08-05T08:45:00Z"
+	},
+	{
+		"id": "u35",
+		"username": "zuri_codes",
+		"displayName": "Zuri",
+		"fullName": "Zuri Mensah",
+		"email": "zuri@example.com",
+		"password": "stacktrace123",
+		"avatar": "ZM",
+		"createdAt": "2026-08-07T11:30:00Z"
+	},
+	{
+		"id": "u36",
+		"username": "daniel_ui",
+		"displayName": "Danny",
+		"fullName": "Daniel Foster",
+		"email": "danny@example.com",
+		"password": "stacktrace123",
+		"avatar": "DF",
+		"createdAt": "2026-08-09T14:15:00Z"
+	},
+	{
+		"id": "u37",
+		"username": "miriam_dev",
+		"displayName": "Miriam",
+		"fullName": "Miriam Ochieng",
+		"email": "miriam@example.com",
+		"password": "stacktrace123",
+		"avatar": "MO",
+		"createdAt": "2026-08-11T09:40:00Z"
+	},
+	{
+		"id": "u38",
+		"username": "ryan_codes",
+		"displayName": "Ryan",
+		"fullName": "Ryan Mitchell",
+		"email": "ryan@example.com",
+		"password": "stacktrace123",
+		"avatar": "RM",
+		"createdAt": "2026-08-13T16:20:00Z"
+	},
+	{
+		"id": "u39",
+		"username": "sara_stack",
+		"displayName": "Sara",
+		"fullName": "Sara Bennett",
+		"email": "sara@example.com",
+		"password": "stacktrace123",
+		"avatar": "SB",
+		"createdAt": "2026-08-15T10:55:00Z"
+	},
+	{
+		"id": "u40",
+		"username": "collins_dev",
+		"displayName": "Collins",
+		"fullName": "Collins Maina",
+		"email": "collins@example.com",
+		"password": "stacktrace123",
+		"avatar": "CM",
+		"createdAt": "2026-08-16T13:35:00Z"
+	},
+	{
+		"id": "u41",
+		"username": "tess_codes",
+		"displayName": "Tess",
+		"fullName": "Teresa Moore",
+		"email": "teresa@example.com",
+		"password": "stacktrace123",
+		"avatar": "TM",
+		"createdAt": "2026-08-17T08:10:00Z"
+	},
+	{
+		"id": "u42",
+		"username": "ian_backend",
+		"displayName": "Ian",
+		"fullName": "Ian Roberts",
+		"email": "ian@example.com",
+		"password": "stacktrace123",
+		"avatar": "IR",
+		"createdAt": "2026-08-18T12:45:00Z"
+	},
+	{
+		"id": "u43",
+		"username": "bella_dev",
+		"displayName": "Bella",
+		"fullName": "Bella Johnson",
+		"email": "bella@example.com",
+		"password": "stacktrace123",
+		"avatar": "BJ",
+		"createdAt": "2026-08-19T15:05:00Z"
+	},
+	{
+		"id": "u44",
+		"username": "markbuilds",
+		"displayName": "Mark",
+		"fullName": "Mark Thompson",
+		"email": "mark@example.com",
+		"password": "stacktrace123",
+		"avatar": "MT",
+		"createdAt": "2026-08-20T10:30:00Z"
+	},
+	{
+		"id": "u45",
+		"username": "claire_codes",
+		"displayName": "Claire",
+		"fullName": "Claire Evans",
+		"email": "claire@example.com",
+		"password": "stacktrace123",
+		"avatar": "CE",
+		"createdAt": "2026-08-21T14:50:00Z"
+	},
+	{
+		"id": "u46",
+		"username": "otis_dev",
+		"displayName": "Otis",
+		"fullName": "Otis Kamau",
+		"email": "otis@example.com",
+		"password": "stacktrace123",
+		"avatar": "OK",
+		"createdAt": "2026-08-22T09:15:00Z"
+	},
+	{
+		"id": "u47",
+		"username": "maya_js",
+		"displayName": "Maya",
+		"fullName": "Maya Richardson",
+		"email": "maya.richardson@example.com",
+		"password": "stacktrace123",
+		"avatar": "MR",
+		"createdAt": "2026-08-23T11:40:00Z"
+	},
+	{
+		"id": "u48",
+		"username": "victor_codes",
+		"displayName": "Victor",
+		"fullName": "Victor Kamau",
+		"email": "victor@example.com",
+		"password": "stacktrace123",
+		"avatar": "VK",
+		"createdAt": "2026-08-24T13:25:00Z"
+	},
+	{
+		"id": "u49",
+		"username": "leahfrontend",
+		"displayName": "Leah",
+		"fullName": "Leah Taylor",
+		"email": "leah@example.com",
+		"password": "stacktrace123",
+		"avatar": "LT",
+		"createdAt": "2026-08-25T08:50:00Z"
+	},
+	{
+		"id": "u50",
+		"username": "devbyjordan",
+		"displayName": "Jordan",
+		"fullName": "Jordan Clark",
+		"email": "jordan@example.com",
+		"password": "stacktrace123",
+		"avatar": "JC",
+		"createdAt": "2026-08-26T16:10:00Z"
 	}
 ]
