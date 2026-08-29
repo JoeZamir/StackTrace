@@ -13,7 +13,6 @@ import { getComments } from "./utils/comments.js";
 */
 
 let post = [];
-let comments = [];
 
 
 function getSelectedId() {
@@ -99,10 +98,10 @@ function renderPostPage() {
 
 
 function updateInlineVote(row, source) {
-  const upButton = document.querySelector('[data-vote-button="up"]', row);
-  const downButton = document.querySelector('[data-vote-button="down"]', row);
-  const upCount = document.querySelector(".post-card__vote-count", upButton ?? row);
-  const downCount = document.querySelector(".post-card__vote-count", downButton ?? row);
+  const upButton = row.querySelector('[data-vote-button="up"]');
+  const downButton = row.querySelector('[data-vote-button="down"]');
+  const upCount = (upButton ?? row).querySelector(".post-card__vote-count");
+  const downCount = (downButton ?? row).querySelector(".post-card__vote-count");
 
   if (upButton) {
     const active = source.userVote === "up";

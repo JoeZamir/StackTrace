@@ -164,7 +164,7 @@ by hand.
 
 ## Running locally
 
-```
+```nodejs
 node server.js
 ```
 

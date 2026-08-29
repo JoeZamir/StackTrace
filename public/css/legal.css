@@ -1,0 +1,169 @@
+@import "tokens.css";
+
+/* --- Legal page shell --- */
+.legal {
+  max-width: 42rem;
+}
+
+.legal__updated {
+  font-family: var(--font-display);
+  font-size: 0.76rem;
+  color: var(--color-text-faint);
+  margin-bottom: var(--space-6);
+  display: block;
+}
+
+.legal__intro {
+  font-size: 1.05rem;
+  color: var(--color-text-dim);
+  margin-bottom: var(--space-7);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* --- Table of contents: styled like a file tree --- */
+.legal-toc {
+  margin-bottom: var(--space-7);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.legal-toc__title {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  margin-bottom: var(--space-3);
+  display: block;
+}
+
+.legal-toc ol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  counter-reset: toc;
+}
+
+.legal-toc li {
+  counter-increment: toc;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+}
+
+.legal-toc li::before {
+  content: counter(toc, decimal-leading-zero);
+  color: var(--color-accent);
+  margin-right: var(--space-3);
+}
+
+.legal-toc a {
+  color: var(--color-text-dim);
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s var(--ease-snap), border-color 0.15s var(--ease-snap);
+}
+
+.legal-toc a:hover {
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+/* --- Section content --- */
+.legal-section {
+  margin-bottom: var(--space-7);
+  scroll-margin-top: var(--space-6);
+}
+
+.legal-section__number {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  color: var(--color-accent);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+.legal-section h2 {
+  font-size: 1.3rem;
+  margin-bottom: var(--space-4);
+}
+
+.legal-section p {
+  color: var(--color-text-dim);
+  margin-bottom: var(--space-4);
+}
+
+.legal-section p:last-child {
+  margin-bottom: 0;
+}
+
+.legal-section ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  padding-left: var(--space-5);
+}
+
+.legal-section li {
+  display: list-item;
+  list-style: none;
+  color: var(--color-text-dim);
+  position: relative;
+}
+
+.legal-section li::before {
+  content: "▸";
+  color: var(--color-accent);
+  position: absolute;
+  left: calc(-1 * var(--space-5));
+}
+
+.legal-section strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* --- Callout: the "this is a demo project" honesty box --- */
+.legal-callout {
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-info-dim);
+  border-left: 3px solid var(--color-info);
+  border-radius: var(--radius-sm);
+  background: var(--color-info-dim);
+  margin-bottom: var(--space-6);
+}
+
+.legal-callout__label {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-info);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+.legal-callout p {
+  color: var(--color-text-dim);
+  margin: 0;
+}
+
+.legal-footer {
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  color: var(--color-text-faint);
+}
+
+.legal-footer a {
+  color: var(--color-accent);
+}
+
+@media (max-width: 560px) {
+  .legal-toc {
+    padding: var(--space-3) var(--space-4);
+  }
+}

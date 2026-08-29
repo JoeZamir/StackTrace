@@ -65,7 +65,7 @@ export function refreshAuthStatus(scope = document) {
             <div class="account-popover__identity"><span class="account-pill__avatar">${getInitials(user)}</span><strong>${user.fullName || user.username}</strong></div>
             <a class="account-popover__item" role="menuitem" href="profile.html"><span aria-hidden="true">✎</span><span>Edit profile</span></a>
             <button class="account-popover__item account-popover__item--logout" type="button" role="menuitem" data-signout><span aria-hidden="true">↪</span><span>Logout</span></button>
-            <div class="account-popover__legal"><a href="#privacy">Privacy Policy</a><span>·</span><a href="#terms">Terms of Service</a></div>
+            <div class="account-popover__legal"><a href="privacy.html">Privacy Policy</a><span>·</span><a href="terms.html">Terms of Service</a></div>
           </div>
         </div>`;
     } else {
